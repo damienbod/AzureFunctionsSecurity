@@ -2,3 +2,5 @@
 /FunctionApiKeys/FunctionApiKeys/Properties/PublishProfiles/FunctionsSecurity - Zip Deploy.pubxml
 /FunctionApiKeys/FunctionApiKeys/Properties/ServiceDependencies/FunctionsSecurity - Zip Deploy/profile.arm.json
 /FunctionApiKeys/.vs
+/FunctionApiKeys/FunctionApiKeys/Properties/serviceDependencies.FunctionsSecurity - Zip Deploy.json
+/FunctionApiKeys/FunctionApiKeys/Properties/ServiceDependencies/
