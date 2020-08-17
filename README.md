@@ -1,5 +1,11 @@
 # Azure Functions Security
 
+## Blogs
+
+Securing Azure Functions using API Keys
+
+https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/
+
 ## Azure Functions API keys , AuthorizationLevel.Anonymous
 
 ### Azure
