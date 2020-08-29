@@ -1,6 +1,7 @@
-/FunctionApiKeys/.vs/FunctionApiKeys/v16/.suo
-/FunctionApiKeys/FunctionApiKeys/Properties/PublishProfiles/FunctionsSecurity - Zip Deploy.pubxml
-/FunctionApiKeys/FunctionApiKeys/Properties/ServiceDependencies/FunctionsSecurity - Zip Deploy/profile.arm.json
 /FunctionApiKeys/.vs
-/FunctionApiKeys/FunctionApiKeys/Properties/serviceDependencies.FunctionsSecurity - Zip Deploy.json
-/FunctionApiKeys/FunctionApiKeys/Properties/ServiceDependencies/
+/FunctionApiKeys/Properties/PublishProfiles/FunctionsSecurity - Zip Deploy.pubxml
+/FunctionApiKeys/Properties/serviceDependencies.FunctionsSecurity - Zip Deploy.json
+/FunctionApiKeys/Properties/ServiceDependencies/FunctionsSecurity - Zip Deploy/profile.arm.json
+/FunctionApiKeys/Properties/ServiceDependencies/FunctionsSecurity - Zip Deploy/storage1.arm.json
+/FunctionCertificate/Properties/serviceDependencies.json
+/FunctionCertificate/Properties/serviceDependencies.local.json
