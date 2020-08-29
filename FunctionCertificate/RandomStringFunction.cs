@@ -27,24 +27,6 @@ namespace FunctionCertificate
             return new OkObjectResult(GetEncodedRandomString());
         }
 
-        [FunctionName("RandomStringAuthLevelFunc")]
-        public IActionResult RandomStringAuthLevelFunc(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
-        {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelFunc processed a request.");
-
-            return new OkObjectResult(GetEncodedRandomString());
-        }
-
-        [FunctionName("RandomStringAuthLevelAdmin")]
-        public IActionResult RandomStringAuthLevelAdmin(
-           [HttpTrigger(AuthorizationLevel.Admin, "get", Route = null)] HttpRequest req)
-        {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAdmin processed a request.");
-
-            return new OkObjectResult(GetEncodedRandomString());
-        }
-
         private string GetEncodedRandomString()
         {
             var base64 = Convert.ToBase64String(GenerateRandomBytes(100));
