@@ -10,7 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionCertificate", "FunctionCertificate\FunctionCertificate.csproj", "{460007B0-5F82-4C65-9B44-0409B6901675}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionCertificates", "FunctionCertificates", "{3C5DA87B-0DE3-496B-B452-0D60AA10F789}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionCertificate", "FunctionCertificates\FunctionCertificate\FunctionCertificate.csproj", "{841D9F43-3F51-4B10-A296-25EBB572FD5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionCertificateConsoleClient", "FunctionCertificates\FunctionCertificateConsoleClient\FunctionCertificateConsoleClient.csproj", "{A63E3801-1491-475A-B819-1FE840003ADE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateSelfSignedCertsConsole", "FunctionCertificates\CreateSelfSignedCertsConsole\CreateSelfSignedCertsConsole.csproj", "{95126E3C-1DE1-43BB-A050-9B2C60D35BBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,13 +28,26 @@ Global
 		{0EF52005-1C7D-457C-8C23-78775E723D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EF52005-1C7D-457C-8C23-78775E723D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EF52005-1C7D-457C-8C23-78775E723D51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{460007B0-5F82-4C65-9B44-0409B6901675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{460007B0-5F82-4C65-9B44-0409B6901675}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{460007B0-5F82-4C65-9B44-0409B6901675}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{460007B0-5F82-4C65-9B44-0409B6901675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{841D9F43-3F51-4B10-A296-25EBB572FD5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841D9F43-3F51-4B10-A296-25EBB572FD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841D9F43-3F51-4B10-A296-25EBB572FD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841D9F43-3F51-4B10-A296-25EBB572FD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A63E3801-1491-475A-B819-1FE840003ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A63E3801-1491-475A-B819-1FE840003ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A63E3801-1491-475A-B819-1FE840003ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A63E3801-1491-475A-B819-1FE840003ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95126E3C-1DE1-43BB-A050-9B2C60D35BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95126E3C-1DE1-43BB-A050-9B2C60D35BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95126E3C-1DE1-43BB-A050-9B2C60D35BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95126E3C-1DE1-43BB-A050-9B2C60D35BBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{841D9F43-3F51-4B10-A296-25EBB572FD5A} = {3C5DA87B-0DE3-496B-B452-0D60AA10F789}
+		{A63E3801-1491-475A-B819-1FE840003ADE} = {3C5DA87B-0DE3-496B-B452-0D60AA10F789}
+		{95126E3C-1DE1-43BB-A050-9B2C60D35BBE} = {3C5DA87B-0DE3-496B-B452-0D60AA10F789}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFCD25B0-72AD-41B9-B2E5-7C0735064493}

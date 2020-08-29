@@ -5,3 +5,5 @@
 /FunctionCertificate/Properties/serviceDependencies.json
 /FunctionCertificate/Properties/serviceDependencies.local.json
 /.vs
+**/bin
+**/obj
