@@ -18,11 +18,11 @@ namespace FunctionCertificate
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
         }
 
-        [FunctionName("RandomStringAuthLevelAnonymous")]
-        public IActionResult RandomStringAuthLevelAnonymous(
+        [FunctionName("RandomString")]
+        public IActionResult RandomString(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
+            _log.LogInformation("C# HTTP trigger RandomString processed a request.");
 
             return new OkObjectResult(GetEncodedRandomString());
         }
