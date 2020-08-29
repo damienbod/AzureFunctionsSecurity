@@ -12,21 +12,22 @@ namespace AzureCertAuthClientConsole
         {
             Console.WriteLine("Get data!");
 
+           //  var json2 = CallApiSelfSignedWithXARRClientCertHeader().GetAwaiter().GetResult();
             var json = GetApiDataUsingHttpClientHandler().GetAwaiter().GetResult();
-
+            
             Console.WriteLine("Success!");
         }
 
-        private static async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
+        private static async Task<string> GetApiDataUsingHttpClientHandler()
         {
-            var cert = new X509Certificate2("client.pfx", "1234");
+            var cert = new X509Certificate2("clientOk.pfx", "1234");
             var handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cert);
             var client = new HttpClient(handler);
 
             var request = new HttpRequestMessage()
             {
-                RequestUri = new Uri("https://azurecertauth20200118105901.azurewebsites.net/WeatherForecast"),
+                RequestUri = new Uri("https://functioncertificate20200829221633.azurewebsites.net/api/randomstring"),
                 Method = HttpMethod.Get,
             };
             var response = await client.SendAsync(request);
@@ -34,11 +35,42 @@ namespace AzureCertAuthClientConsole
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseContent);
-                var data = JsonDocument.Parse(responseContent);
-                return data;
+                return responseContent;
             }
 
             throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+        }
+
+        // Local dev
+        private static async Task<string> CallApiSelfSignedWithXARRClientCertHeader()
+        {
+            try
+            {
+                var cert = new X509Certificate2("clientOk.pfx", "1234");
+                var handler = new HttpClientHandler();
+                handler.ClientCertificates.Add(cert);
+                var client = new HttpClient(handler);
+
+                var request = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri("http://localhost:7071/api/RandomString"),
+                    Method = HttpMethod.Get,
+                };
+
+                request.Headers.Add("X-ARR-ClientCert", Convert.ToBase64String(cert.RawData));
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return responseContent;
+                }
+
+                throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException($"Exception {e}");
+            }
         }
     }
 }

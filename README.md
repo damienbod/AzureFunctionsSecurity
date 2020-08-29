@@ -17,3 +17,9 @@ http://localhost:7071/api/RandomStringAuthLevelAdmin
 http://localhost:7071/api/RandomStringAuthLevelAnonymous
 
 http://localhost:7071/api/RandomStringAuthLevelFunc
+
+## Functions Certificate
+
+### Azure
+
+https://functioncertificate20200829215001.azurewebsites.net/api/randomString

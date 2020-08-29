@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
+using Microsoft.Extensions.Primitives;
 
 namespace FunctionCertificate
 {
@@ -24,7 +27,18 @@ namespace FunctionCertificate
         {
             _log.LogInformation("C# HTTP trigger RandomString processed a request.");
 
-            return new OkObjectResult(GetEncodedRandomString());
+            StringValues cert;
+            if (req.Headers.TryGetValue("X-ARR-ClientCert", out cert ))
+            {
+                byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
+                X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
+                if (clientCert.Thumbprint == "723A4D916F008B8464E1D314C6FABC1CB1E926BD")
+                {
+                    return new OkObjectResult(GetEncodedRandomString());
+                }
+            }
+
+            return new UnauthorizedObjectResult("A valid client certificate is not found");            
         }
 
         private string GetEncodedRandomString()
