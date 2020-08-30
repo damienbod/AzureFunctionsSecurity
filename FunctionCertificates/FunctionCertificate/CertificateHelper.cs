@@ -41,6 +41,8 @@ namespace FunctionCertificate
                 throw new ArgumentNullException("no certificateThumbprint");
             }
 
+            log.LogInformation($"looking for certificate with Thumbprint: {certificateThumbprint}");
+
             X509Certificate2 cert = null;
             using (X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
