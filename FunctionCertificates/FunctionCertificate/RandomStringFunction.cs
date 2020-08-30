@@ -34,6 +34,9 @@ namespace FunctionCertificate
                 X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
 
                 // only the Thumbprint is checked, further validation of the client can/should be added
+                // example certificate validation
+                // https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Certificate/src/CertificateAuthenticationHandler.cs
+                // you could load a root cert to the Azure app Service and validate the chain etc
                 if (clientCert.Thumbprint == "723A4D916F008B8464E1D314C6FABC1CB1E926BD")
                 {
                     return new OkObjectResult(GetEncodedRandomString());
