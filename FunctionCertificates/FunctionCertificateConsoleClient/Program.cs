@@ -12,13 +12,14 @@ namespace AzureCertAuthClientConsole
         {
             Console.WriteLine("Get data!");
 
-           //  var json2 = CallApiSelfSignedWithXARRClientCertHeader().GetAwaiter().GetResult();
-            var json = GetApiDataUsingHttpClientHandler().GetAwaiter().GetResult();
+            //var json2 = CallApiSelfSignedWithXARRClientCertHeader().GetAwaiter().GetResult();
+            var json = CallAzureDeployedAPI().GetAwaiter().GetResult();
             
             Console.WriteLine("Success!");
         }
 
-        private static async Task<string> GetApiDataUsingHttpClientHandler()
+        // Test Azure deployment
+        private static async Task<string> CallAzureDeployedAPI()
         {
             var cert = new X509Certificate2("clientOk.pfx", "1234");
             var handler = new HttpClientHandler();
@@ -27,7 +28,7 @@ namespace AzureCertAuthClientConsole
 
             var request = new HttpRequestMessage()
             {
-                RequestUri = new Uri("https://functioncertificate20200829221633.azurewebsites.net/api/randomstring"),
+                RequestUri = new Uri("https://functioncertificate20200829221633.azurewebsites.net/api/randomString"),
                 Method = HttpMethod.Get,
             };
             var response = await client.SendAsync(request);

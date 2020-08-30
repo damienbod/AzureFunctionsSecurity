@@ -32,6 +32,8 @@ namespace FunctionCertificate
             {
                 byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
                 X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
+
+                // only the Thumbprint is checked, further validation of the client can/should be added
                 if (clientCert.Thumbprint == "723A4D916F008B8464E1D314C6FABC1CB1E926BD")
                 {
                     return new OkObjectResult(GetEncodedRandomString());

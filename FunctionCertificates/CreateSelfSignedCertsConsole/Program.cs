@@ -16,29 +16,29 @@ namespace CreateSelfSignedCertsConsole
                 .BuildServiceProvider();
 
             var createClientServerAuthCerts = serviceProvider.GetService<CreateCertificatesClientServerAuth>();
+            string password = "1234";
+            var importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
 
             // Server self signed certificate
-            var server = createClientServerAuthCerts.NewServerSelfSignedCertificate(
-                new DistinguishedName { CommonName = "server", Country = "CH" },
-                new ValidityPeriod { ValidFrom = DateTime.UtcNow, ValidTo = DateTime.UtcNow.AddYears(10) },
-                dnsName);
+            //var server = createClientServerAuthCerts.NewServerSelfSignedCertificate(
+            //    new DistinguishedName { CommonName = "server", Country = "CH" },
+            //    new ValidityPeriod { ValidFrom = DateTime.UtcNow, ValidTo = DateTime.UtcNow.AddYears(10) },
+            //    dnsName);
+
+            //server.FriendlyName = "azure functions server certificate";
+            //Console.WriteLine($"Created server certificate {server.FriendlyName}");
+
+
+            //var serverCertInPfxBtyes = 
+            //    importExportCertificate.ExportSelfSignedCertificatePfx(password, server);
+            //File.WriteAllBytes("server.pfx", serverCertInPfxBtyes);
 
             // Client self signed certificate
             var client = createClientServerAuthCerts.NewClientSelfSignedCertificate(
                 new DistinguishedName { CommonName = "client", Country = "CH" },
                 new ValidityPeriod { ValidFrom = DateTime.UtcNow, ValidTo = DateTime.UtcNow.AddYears(10) },
                 dnsName);
-            server.FriendlyName = "azure functions server certificate";
             client.FriendlyName = "azure client certificate";
-
-            Console.WriteLine($"Created server certificate {server.FriendlyName}");
-
-            string password = "1234";
-            var importExportCertificate = serviceProvider.GetService<ImportExportCertificate>();
-
-            var serverCertInPfxBtyes = 
-                importExportCertificate.ExportSelfSignedCertificatePfx(password, server);
-            File.WriteAllBytes("server.pfx", serverCertInPfxBtyes);
 
             var clientCertInPfxBtyes = 
                 importExportCertificate.ExportSelfSignedCertificatePfx(password, client);
