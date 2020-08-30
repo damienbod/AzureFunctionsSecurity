@@ -69,7 +69,7 @@ namespace FunctionCertificate
 
         private bool IsValidChainedCertificate(X509Certificate2 clientCertificate)
         {
-            var serverCertificate = new X509Certificate2("localhost_intermediate_l2.pfx", "1234");
+            var serverCertificate = new X509Certificate2("serverl3.pfx", "1234");
             X509Chain x509Chain = new X509Chain();
             var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
 
@@ -77,11 +77,15 @@ namespace FunctionCertificate
             return IsInChain(x509Chain, serverCertificate);
         }
 
-        private bool IsInChain(X509Chain x509Chain, X509Certificate2 serverCertificate)
+        private bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate)
         {
-            for (int i = 0;i < x509Chain.ChainElements.Count; i++)
+            X509Chain serverX509Chain = new X509Chain();
+            serverX509Chain.Build(new X509Certificate2(serverCertificate));
+            var rootThumbprintServer = serverX509Chain.ChainElements[serverX509Chain.ChainElements.Count - 1].Certificate.Thumbprint;
+
+            for (int i = 0;i < clientX509Chain.ChainElements.Count; i++)
             {
-                if(x509Chain.ChainElements[i].Certificate.Thumbprint == serverCertificate.Thumbprint)
+                if(clientX509Chain.ChainElements[i].Certificate.Thumbprint == rootThumbprintServer)
                 {
                     return true;
                 }
