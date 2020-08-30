@@ -37,7 +37,7 @@ namespace FunctionCertificate
                 // example certificate validation
                 // https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Certificate/src/CertificateAuthenticationHandler.cs
                 // you could load a root cert to the Azure app Service and validate the chain etc
-                if (clientCert.Thumbprint == "723A4D916F008B8464E1D314C6FABC1CB1E926BD")
+                if (clientCert.Thumbprint == "64B1782A40E7AE5B804CF50C1A7A9B874DC53EBB")
                 {
                     return new OkObjectResult(GetEncodedRandomString());
                 }
@@ -57,7 +57,7 @@ namespace FunctionCertificate
             {
                 byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
                 X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
-                if(IsValidChainedCertificate(clientCert))
+                if(CertificateHelper.IsValidChainedCertificate(clientCert))
                 {
                     return new OkObjectResult(GetEncodedRandomString());
                 }
@@ -65,34 +65,7 @@ namespace FunctionCertificate
 
             return new UnauthorizedObjectResult("A valid client certificate is not found");
         }
-        
 
-        private bool IsValidChainedCertificate(X509Certificate2 clientCertificate)
-        {
-            var serverCertificate = new X509Certificate2("serverl3.pfx", "1234");
-            X509Chain x509Chain = new X509Chain();
-            var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
-
-            // Validate chain if using a trusted certificate
-            return IsInChain(x509Chain, serverCertificate);
-        }
-
-        private bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate)
-        {
-            X509Chain serverX509Chain = new X509Chain();
-            serverX509Chain.Build(new X509Certificate2(serverCertificate));
-            var rootThumbprintServer = serverX509Chain.ChainElements[serverX509Chain.ChainElements.Count - 1].Certificate.Thumbprint;
-
-            for (int i = 0;i < clientX509Chain.ChainElements.Count; i++)
-            {
-                if(clientX509Chain.ChainElements[i].Certificate.Thumbprint == rootThumbprintServer)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         private string GetEncodedRandomString()
         {
