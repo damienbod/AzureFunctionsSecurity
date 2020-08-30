@@ -72,19 +72,21 @@ namespace FunctionCertificate
             var serverCertificate = new X509Certificate2("localhost_intermediate_l2.pfx", "1234");
             X509Chain x509Chain = new X509Chain();
             var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
-            var test = x509Chain.ChainElements[x509Chain.ChainElements.Count - 1].Certificate.Thumbprint == serverCertificate.Thumbprint;
-            
-            if (x509Chain.Build(new X509Certificate2(clientCertificate)))
+
+            // Validate chain if using a trusted certificate
+            return IsInChain(x509Chain, serverCertificate);
+        }
+
+        private bool IsInChain(X509Chain x509Chain, X509Certificate2 serverCertificate)
+        {
+            for (int i = 0;i < x509Chain.ChainElements.Count; i++)
             {
-                return x509Chain.ChainElements[x509Chain.ChainElements.Count - 1]
-                    .Certificate.Thumbprint == serverCertificate.Thumbprint; 
+                if(x509Chain.ChainElements[i].Certificate.Thumbprint == serverCertificate.Thumbprint)
+                {
+                    return true;
+                }
             }
 
-            //if (clientCertificate.Thumbprint == "723A4D916F008B8464E1D314C6FABC1CB1E926BD")
-            //{
-                
-            //    return true;
-            //}
             return false;
         }
 
