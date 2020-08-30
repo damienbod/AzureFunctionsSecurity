@@ -50,3 +50,5 @@ https://damienbod.com/2019/09/07/using-certificate-authentication-with-ihttpclie
 https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Certificate/src/CertificateAuthenticationHandler.cs
                 
 https://stackoverflow.com/questions/27307322/verify-server-certificate-against-self-signed-certificate-authority
+
+https://stackoverflow.com/questions/24107374/ssl-certificate-not-in-x509store-when-uploaded-to-azure-website#34719216

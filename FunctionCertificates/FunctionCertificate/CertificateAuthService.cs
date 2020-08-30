@@ -4,12 +4,20 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace FunctionCertificate
 {
-    public static class CertificateHelper
+    public class CertificateAuthService
     {
-        public static bool IsValidChainedCertificate(X509Certificate2 clientCertificate, ILogger log)
+        public bool IsValidChainedCertificate(X509Certificate2 clientCertificate, ILogger log)
         {
             var serverCertificate = GetCertificate("182BC671E189654A66A0596A5EBADAFC6430B67D", log);
-            X509Chain x509Chain = new X509Chain();
+            X509Chain x509Chain = new X509Chain
+            {
+                ChainPolicy = new X509ChainPolicy()
+                {
+                    RevocationFlag = X509RevocationFlag.EndCertificateOnly,
+                    RevocationMode = X509RevocationMode.NoCheck,
+                    VerificationFlags = X509VerificationFlags.AllFlags
+                }
+            };
 
             var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
             // Validate chain if using a trusted certificate
@@ -17,9 +25,17 @@ namespace FunctionCertificate
             return IsInChain(x509Chain, serverCertificate, log);
         }
 
-        public static bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate, ILogger log)
+        private bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate, ILogger log)
         {
-            X509Chain serverX509Chain = new X509Chain();
+            X509Chain serverX509Chain = new X509Chain
+            {
+                ChainPolicy = new X509ChainPolicy()
+                {
+                    RevocationFlag = X509RevocationFlag.EndCertificateOnly,
+                    RevocationMode = X509RevocationMode.NoCheck,
+                    VerificationFlags = X509VerificationFlags.AllFlags
+                }
+            };
             serverX509Chain.Build(new X509Certificate2(serverCertificate));
             var rootThumbprintServer = serverX509Chain.ChainElements[serverX509Chain.ChainElements.Count - 1].Certificate.Thumbprint;
 
@@ -34,7 +50,7 @@ namespace FunctionCertificate
             return false;
         }
 
-        public static  X509Certificate2 GetCertificate(string certificateThumbprint, ILogger log)
+        private X509Certificate2 GetCertificate(string certificateThumbprint, ILogger log)
         {
             if (string.IsNullOrEmpty(certificateThumbprint))
             {
@@ -63,7 +79,7 @@ namespace FunctionCertificate
                 cert = new X509Certificate2("serverl3.pfx", "1234");
             }
 
-            if(cert == null)
+            if (cert == null)
             {
                 log.LogError($"No certificate found...");
             }

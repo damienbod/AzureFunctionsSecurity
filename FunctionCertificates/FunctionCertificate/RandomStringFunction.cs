@@ -15,9 +15,11 @@ namespace FunctionCertificate
     public class RandomStringFunction
     {
         private readonly ILogger _log;
+        private readonly CertificateAuthService _certificateHelper;
 
-        public RandomStringFunction(ILoggerFactory loggerFactory)
+        public RandomStringFunction(CertificateAuthService certificateHelper, ILoggerFactory loggerFactory)
         {
+            _certificateHelper = certificateHelper;
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
         }
 
@@ -43,7 +45,7 @@ namespace FunctionCertificate
                 }
             }
 
-            return new UnauthorizedObjectResult("A valid client certificate is not found");            
+            return new BadRequestObjectResult("A valid client certificate is not found");            
         }
 
         [FunctionName("RandomStringChained")]
@@ -57,13 +59,13 @@ namespace FunctionCertificate
             {
                 byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
                 X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
-                if(CertificateHelper.IsValidChainedCertificate(clientCert, _log))
+                if(_certificateHelper.IsValidChainedCertificate(clientCert, _log))
                 {
                     return new OkObjectResult(GetEncodedRandomString());
                 }
             }
 
-            return new UnauthorizedObjectResult("A valid client certificate is not found");
+            return new BadRequestObjectResult("A valid client certificate is not found");
         }
 
 

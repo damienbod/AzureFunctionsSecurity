@@ -18,16 +18,17 @@ namespace AzureCertAuthClientConsole
 
         private static async Task<string> CallApi()
         {
-            var azureRandomStringBasicUrl = "https://functioncertificate20200829221633.azurewebsites.net/api/randomStringBasic";
-            var azureRandomStringChainedUrl = "https://functioncertificate20200829221633.azurewebsites.net/api/randomStringChained";
-
-            var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringBasic";
-            var localRandomStringChainedUrl = "http://localhost:7071/api/RandomStringChained";
-
-            //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl);
-            //return await CallApiXARRClientCertHeader(localRandomStringChainedUrl);
+            //var azureRandomStringBasicUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/randomStringBasic";
             //return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
+
+            var azureRandomStringChainedUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/randomStringChained";
             return await CallAzureDeployedAPI(azureRandomStringChainedUrl);
+
+            //var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringBasic";
+            //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl);
+
+            //var localRandomStringChainedUrl = "http://localhost:7071/api/RandomStringChained";
+            //return await CallApiXARRClientCertHeader(localRandomStringChainedUrl);
         }
 
         // Test Azure deployment
