@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace FunctionCertificate
 {
     public static class CertificateHelper
     {
-        public static bool IsValidChainedCertificate(X509Certificate2 clientCertificate)
+        public static bool IsValidChainedCertificate(X509Certificate2 clientCertificate, ILogger log)
         {
-            var serverCertificate = GetCertificate("182BC671E189654A66A0596A5EBADAFC6430B67D");
+            var serverCertificate = GetCertificate("182BC671E189654A66A0596A5EBADAFC6430B67D", log);
             X509Chain x509Chain = new X509Chain();
 
             var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
             // Validate chain if using a trusted certificate
 
-            return IsInChain(x509Chain, serverCertificate);
+            return IsInChain(x509Chain, serverCertificate, log);
         }
 
-        public static bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate)
+        public static bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate, ILogger log)
         {
             X509Chain serverX509Chain = new X509Chain();
             serverX509Chain.Build(new X509Certificate2(serverCertificate));
@@ -35,17 +34,21 @@ namespace FunctionCertificate
             return false;
         }
 
-        public static  X509Certificate2 GetCertificate(string certificateThumbprint)
+        public static  X509Certificate2 GetCertificate(string certificateThumbprint, ILogger log)
         {
-            X509Certificate2 cert = null;
+            if (string.IsNullOrEmpty(certificateThumbprint))
+            {
+                throw new ArgumentNullException("no certificateThumbprint");
+            }
 
-            // dev, test, production
+            X509Certificate2 cert = null;
             using (X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
                 store.Open(OpenFlags.ReadOnly);
                 var certs = store.Certificates.Find(X509FindType.FindByThumbprint, certificateThumbprint, false);
                 if (certs.Count > 0)
                 {
+                    log.LogInformation($"Found certificate: {certs[0].Thumbprint}");
                     cert = certs[0];
                 }
                 store.Close();
@@ -54,9 +57,14 @@ namespace FunctionCertificate
             // for local development
             if (cert == null)
             {
+                log.LogWarning($"No certificate found with Thumbprint, try local debug cert");
                 cert = new X509Certificate2("serverl3.pfx", "1234");
             }
 
+            if(cert == null)
+            {
+                log.LogError($"No certificate found...");
+            }
             return cert;
         }
     }

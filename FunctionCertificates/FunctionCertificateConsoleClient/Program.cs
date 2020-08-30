@@ -25,9 +25,9 @@ namespace AzureCertAuthClientConsole
             var localRandomStringChainedUrl = "http://localhost:7071/api/RandomStringChained";
 
             //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl);
-            return await CallApiXARRClientCertHeader(localRandomStringChainedUrl);
-            // return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
-            // return await CallAzureDeployedAPI(azureRandomStringChainedUrl);
+            //return await CallApiXARRClientCertHeader(localRandomStringChainedUrl);
+            //return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
+            return await CallAzureDeployedAPI(azureRandomStringChainedUrl);
         }
 
         // Test Azure deployment

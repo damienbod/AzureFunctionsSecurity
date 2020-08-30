@@ -57,7 +57,7 @@ namespace FunctionCertificate
             {
                 byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
                 X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
-                if(CertificateHelper.IsValidChainedCertificate(clientCert))
+                if(CertificateHelper.IsValidChainedCertificate(clientCert, _log))
                 {
                     return new OkObjectResult(GetEncodedRandomString());
                 }

@@ -7,8 +7,7 @@ namespace FunctionCertificate
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            // ONLY ACCEPT CERTIFICATE WITH FOLLOWING thumbprint
-            // 723A4D916F008B8464E1D314C6FABC1CB1E926BD
+            builder.Services.AddLogging();
         }
     }
 }
