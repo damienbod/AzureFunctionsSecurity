@@ -11,24 +11,36 @@ namespace AzureCertAuthClientConsole
         static void Main(string[] args)
         {
             Console.WriteLine("Get data!");
+            var result = CallApi().GetAwaiter().GetResult();
 
-            //var json2 = CallApiSelfSignedWithXARRClientCertHeader().GetAwaiter().GetResult();
-            var json = CallAzureDeployedAPI().GetAwaiter().GetResult();
-            
-            Console.WriteLine("Success!");
+            Console.WriteLine($"Success! {result}");
+        }
+
+        private static async Task<string> CallApi()
+        {
+            var azureRandomStringBasicUrl = "https://functioncertificate20200829221633.azurewebsites.net/api/randomStringBasic";
+            var azureRandomStringChainedUrl = "https://functioncertificate20200829221633.azurewebsites.net/api/randomStringChained";
+
+            var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringBasic";
+            var localRandomStringChainedUrl = "http://localhost:7071/api/RandomStringChained";
+
+            //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl);
+            return await CallApiXARRClientCertHeader(localRandomStringChainedUrl);
+            // return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
+            // return await CallAzureDeployedAPI(azureRandomStringChainedUrl);
         }
 
         // Test Azure deployment
-        private static async Task<string> CallAzureDeployedAPI()
+        private static async Task<string> CallAzureDeployedAPI(string url)
         {
-            var cert = new X509Certificate2("clientOk.pfx", "1234");
+            var cert = new X509Certificate2("clientl3.pfx", "1234");
             var handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cert);
             var client = new HttpClient(handler);
 
             var request = new HttpRequestMessage()
             {
-                RequestUri = new Uri("https://functioncertificate20200829221633.azurewebsites.net/api/randomString"),
+                RequestUri = new Uri(url),
                 Method = HttpMethod.Get,
             };
             var response = await client.SendAsync(request);
@@ -43,18 +55,18 @@ namespace AzureCertAuthClientConsole
         }
 
         // Local dev
-        private static async Task<string> CallApiSelfSignedWithXARRClientCertHeader()
+        private static async Task<string> CallApiXARRClientCertHeader(string url)
         {
             try
             {
-                var cert = new X509Certificate2("clientOk.pfx", "1234");
+                var cert = new X509Certificate2("clientl3.pfx", "1234");
                 var handler = new HttpClientHandler();
                 handler.ClientCertificates.Add(cert);
                 var client = new HttpClient(handler);
 
                 var request = new HttpRequestMessage()
                 {
-                    RequestUri = new Uri("http://localhost:7071/api/RandomString"),
+                    RequestUri = new Uri(url),
                     Method = HttpMethod.Get,
                 };
 

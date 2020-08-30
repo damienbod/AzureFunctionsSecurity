@@ -21,8 +21,8 @@ namespace FunctionCertificate
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
         }
 
-        [FunctionName("RandomString")]
-        public IActionResult RandomString(
+        [FunctionName("RandomStringBasic")]
+        public IActionResult RandomStringBasic(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
             _log.LogInformation("C# HTTP trigger RandomString processed a request.");
@@ -44,6 +44,48 @@ namespace FunctionCertificate
             }
 
             return new UnauthorizedObjectResult("A valid client certificate is not found");            
+        }
+
+        [FunctionName("RandomStringChained")]
+        public IActionResult RandomStringChained(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
+        {
+            _log.LogInformation("C# HTTP trigger RandomString processed a request.");
+
+            StringValues cert;
+            if (req.Headers.TryGetValue("X-ARR-ClientCert", out cert))
+            {
+                byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
+                X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
+                if(IsValidChainedCertificate(clientCert))
+                {
+                    return new OkObjectResult(GetEncodedRandomString());
+                }
+            }
+
+            return new UnauthorizedObjectResult("A valid client certificate is not found");
+        }
+        
+
+        private bool IsValidChainedCertificate(X509Certificate2 clientCertificate)
+        {
+            var serverCertificate = new X509Certificate2("localhost_intermediate_l2.pfx", "1234");
+            X509Chain x509Chain = new X509Chain();
+            var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
+            var test = x509Chain.ChainElements[x509Chain.ChainElements.Count - 1].Certificate.Thumbprint == serverCertificate.Thumbprint;
+            
+            if (x509Chain.Build(new X509Certificate2(clientCertificate)))
+            {
+                return x509Chain.ChainElements[x509Chain.ChainElements.Count - 1]
+                    .Certificate.Thumbprint == serverCertificate.Thumbprint; 
+            }
+
+            //if (clientCertificate.Thumbprint == "723A4D916F008B8464E1D314C6FABC1CB1E926BD")
+            //{
+                
+            //    return true;
+            //}
+            return false;
         }
 
         private string GetEncodedRandomString()
