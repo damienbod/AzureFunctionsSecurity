@@ -39,6 +39,8 @@ https://functioncertificate20200829215001.azurewebsites.net/api/randomString
 
 # Links
 
+https://docs.microsoft.com/en-us/azure/azure-functions/security-concepts
+
 https://docs.microsoft.com/en-us/aspnet/core/security/authentication/certauth
 
 https://damienbod.com/2019/06/13/certificate-authentication-in-asp-net-core-3-0/
