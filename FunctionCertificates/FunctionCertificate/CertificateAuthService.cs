@@ -9,45 +9,13 @@ namespace FunctionCertificate
         public bool IsValidChainedCertificate(X509Certificate2 clientCertificate, ILogger log)
         {
             var serverCertificate = GetCertificate("182BC671E189654A66A0596A5EBADAFC6430B67D", log);
-            X509Chain x509Chain = new X509Chain
-            {
-                ChainPolicy = new X509ChainPolicy()
-                {
-                    RevocationFlag = X509RevocationFlag.EndCertificateOnly,
-                    RevocationMode = X509RevocationMode.NoCheck,
-                    VerificationFlags = X509VerificationFlags.AllFlags
-                }
-            };
 
-            var chain = x509Chain.Build(new X509Certificate2(clientCertificate));
-            // Validate chain if using a trusted certificate
-
-            return IsInChain(x509Chain, serverCertificate, log);
+            return IsValidClientCertificate(clientCertificate, serverCertificate, log);
         }
 
-        private bool IsInChain(X509Chain clientX509Chain, X509Certificate2 serverCertificate, ILogger log)
+        private bool IsValidClientCertificate(X509Certificate2 clientCertificate, X509Certificate2 serverCertificate, ILogger log)
         {
-            X509Chain serverX509Chain = new X509Chain
-            {
-                ChainPolicy = new X509ChainPolicy()
-                {
-                    RevocationFlag = X509RevocationFlag.EndCertificateOnly,
-                    RevocationMode = X509RevocationMode.NoCheck,
-                    VerificationFlags = X509VerificationFlags.AllFlags
-                }
-            };
-            serverX509Chain.Build(new X509Certificate2(serverCertificate));
-            var rootThumbprintServer = serverX509Chain.ChainElements[serverX509Chain.ChainElements.Count - 1].Certificate.Thumbprint;
-
-            for (int i = 0; i < clientX509Chain.ChainElements.Count; i++)
-            {
-                if (clientX509Chain.ChainElements[i].Certificate.Thumbprint == rootThumbprintServer)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            throw new NotImplementedException();
         }
 
         private X509Certificate2 GetCertificate(string certificateThumbprint, ILogger log)

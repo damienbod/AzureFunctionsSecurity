@@ -18,23 +18,18 @@ namespace AzureCertAuthClientConsole
 
         private static async Task<string> CallApi()
         {
-            //var azureRandomStringBasicUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/randomStringBasic";
-            //return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
+            var azureRandomStringBasicUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/RandomStringCertAuth";
+            return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
 
-            var azureRandomStringChainedUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/randomStringChained";
-            return await CallAzureDeployedAPI(azureRandomStringChainedUrl);
-
-            //var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringBasic";
+            //var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringCertAuth";
             //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl);
 
-            //var localRandomStringChainedUrl = "http://localhost:7071/api/RandomStringChained";
-            //return await CallApiXARRClientCertHeader(localRandomStringChainedUrl);
         }
 
         // Test Azure deployment
         private static async Task<string> CallAzureDeployedAPI(string url)
         {
-            var cert = new X509Certificate2("clientl3.pfx", "1234");
+            var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
             var handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cert);
             var client = new HttpClient(handler);
@@ -60,7 +55,7 @@ namespace AzureCertAuthClientConsole
         {
             try
             {
-                var cert = new X509Certificate2("clientl3.pfx", "1234");
+                var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
                 var handler = new HttpClientHandler();
                 handler.ClientCertificates.Add(cert);
                 var client = new HttpClient(handler);

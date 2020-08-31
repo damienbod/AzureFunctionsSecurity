@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionCertificate", "Func
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionCertificateConsoleClient", "FunctionCertificates\FunctionCertificateConsoleClient\FunctionCertificateConsoleClient.csproj", "{A63E3801-1491-475A-B819-1FE840003ADE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateChainedCertsConsole", "FunctionCertificates\CreateChainedCertsConsole\CreateChainedCertsConsole.csproj", "{6A6D1F7B-0394-472C-9E77-3508C28CCBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateSelfSignedCertificateConsole", "FunctionCertificates\CreateSelfSignedCertificateConsole\CreateSelfSignedCertificateConsole.csproj", "{6A6D1F7B-0394-472C-9E77-3508C28CCBA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

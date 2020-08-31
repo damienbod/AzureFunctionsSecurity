@@ -52,3 +52,5 @@ https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Cer
 https://stackoverflow.com/questions/27307322/verify-server-certificate-against-self-signed-certificate-authority
 
 https://stackoverflow.com/questions/24107374/ssl-certificate-not-in-x509store-when-uploaded-to-azure-website#34719216
+
+https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#access-client-certificate

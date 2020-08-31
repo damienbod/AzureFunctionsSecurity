@@ -23,8 +23,8 @@ namespace FunctionCertificate
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
         }
 
-        [FunctionName("RandomStringBasic")]
-        public IActionResult RandomStringBasic(
+        [FunctionName("RandomStringCertAuth")]
+        public IActionResult RandomStringCertAuth(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
             _log.LogInformation("C# HTTP trigger RandomString processed a request.");
@@ -38,8 +38,9 @@ namespace FunctionCertificate
                 // only the Thumbprint is checked, further validation of the client can/should be added
                 // example certificate validation
                 // https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Certificate/src/CertificateAuthenticationHandler.cs
-                // you could load a root cert to the Azure app Service and validate the chain etc
-                if (clientCert.Thumbprint == "64B1782A40E7AE5B804CF50C1A7A9B874DC53EBB")
+                // https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#aspnet-sample
+                
+                if (clientCert.Thumbprint == "5726F1DDBC5BA5986A21BDFCBA1D88C74C8EDE90")
                 {
                     return new OkObjectResult(GetEncodedRandomString());
                 }
@@ -47,27 +48,6 @@ namespace FunctionCertificate
 
             return new BadRequestObjectResult("A valid client certificate is not found");            
         }
-
-        [FunctionName("RandomStringChained")]
-        public IActionResult RandomStringChained(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
-        {
-            _log.LogInformation("C# HTTP trigger RandomString processed a request.");
-
-            StringValues cert;
-            if (req.Headers.TryGetValue("X-ARR-ClientCert", out cert))
-            {
-                byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
-                X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
-                if(_certificateHelper.IsValidChainedCertificate(clientCert, _log))
-                {
-                    return new OkObjectResult(GetEncodedRandomString());
-                }
-            }
-
-            return new BadRequestObjectResult("A valid client certificate is not found");
-        }
-
 
         private string GetEncodedRandomString()
         {
