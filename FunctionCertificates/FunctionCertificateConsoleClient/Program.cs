@@ -18,20 +18,21 @@ namespace AzureCertAuthClientConsole
 
         private static async Task<string> CallApi()
         {
+            var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
+
             var azureRandomStringBasicUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/RandomStringCertAuth";
-            return await CallAzureDeployedAPI(azureRandomStringBasicUrl);
+            return await CallAzureDeployedAPI(azureRandomStringBasicUrl, cert);
 
             //var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringCertAuth";
-            //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl);
+            //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl, cert);
 
         }
 
         // Test Azure deployment
-        private static async Task<string> CallAzureDeployedAPI(string url)
+        private static async Task<string> CallAzureDeployedAPI(string url, X509Certificate2 clientCertificate)
         {
-            var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
             var handler = new HttpClientHandler();
-            handler.ClientCertificates.Add(cert);
+            handler.ClientCertificates.Add(clientCertificate);
             var client = new HttpClient(handler);
 
             var request = new HttpRequestMessage()
@@ -51,13 +52,12 @@ namespace AzureCertAuthClientConsole
         }
 
         // Local dev
-        private static async Task<string> CallApiXARRClientCertHeader(string url)
+        private static async Task<string> CallApiXARRClientCertHeader(string url, X509Certificate2 clientCertificate)
         {
             try
             {
-                var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
                 var handler = new HttpClientHandler();
-                handler.ClientCertificates.Add(cert);
+                handler.ClientCertificates.Add(clientCertificate);
                 var client = new HttpClient(handler);
 
                 var request = new HttpRequestMessage()
@@ -66,7 +66,7 @@ namespace AzureCertAuthClientConsole
                     Method = HttpMethod.Get,
                 };
 
-                request.Headers.Add("X-ARR-ClientCert", Convert.ToBase64String(cert.RawData));
+                request.Headers.Add("X-ARR-ClientCert", Convert.ToBase64String(clientCertificate.RawData));
                 var response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
