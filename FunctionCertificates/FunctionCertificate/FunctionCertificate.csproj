@@ -19,6 +19,9 @@
 
   </ItemGroup>
   <ItemGroup>
+    <None Update="functionsCertAuth.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

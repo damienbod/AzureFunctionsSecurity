@@ -39,11 +39,20 @@ namespace FunctionCertificate
                 // example certificate validation
                 // https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Certificate/src/CertificateAuthenticationHandler.cs
                 // https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#aspnet-sample
-                
-                if (clientCert.Thumbprint == "5726F1DDBC5BA5986A21BDFCBA1D88C74C8EDE90")
+
+                // Read from an APP.SETTING so this can be chaged without a new deployment
+                if (clientCert.Thumbprint != "5726F1DDBC5BA5986A21BDFCBA1D88C74C8EDE90")
                 {
-                    return new OkObjectResult(GetEncodedRandomString());
+                    return new BadRequestObjectResult("A valid client certificate is not used");
                 }
+
+                if (DateTime.Compare(DateTime.UtcNow, clientCert.NotBefore) < 0
+                            || DateTime.Compare(DateTime.UtcNow, clientCert.NotAfter) > 0)
+                {
+                    return new BadRequestObjectResult("client certificate not in alllowed time interval");
+                }
+
+                return new OkObjectResult(GetEncodedRandomString());
             }
 
             return new BadRequestObjectResult("A valid client certificate is not found");            
