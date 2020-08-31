@@ -15,11 +15,9 @@ namespace FunctionCertificate
     public class RandomStringFunction
     {
         private readonly ILogger _log;
-        private readonly CertificateAuthService _certificateHelper;
 
-        public RandomStringFunction(CertificateAuthService certificateHelper, ILoggerFactory loggerFactory)
+        public RandomStringFunction(ILoggerFactory loggerFactory)
         {
-            _certificateHelper = certificateHelper;
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
         }
 
