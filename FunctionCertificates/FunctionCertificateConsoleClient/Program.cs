@@ -10,15 +10,17 @@ namespace AzureCertAuthClientConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Get data!");
+            Console.WriteLine("Let's try to get a random string from the Azure Function using a certificate!");
+            Console.WriteLine("----");
             var result = CallApi().GetAwaiter().GetResult();
-
-            Console.WriteLine($"Success! {result}");
+            Console.WriteLine($"{result}");
+            Console.WriteLine("----");
+            Console.WriteLine($"Success!");
         }
 
         private static async Task<string> CallApi()
         {
-            var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
+            var cert = new X509Certificate2("client401.pfx", "1234");
 
             var azureRandomStringBasicUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/RandomStringCertAuth";
             return await CallAzureDeployedAPI(azureRandomStringBasicUrl, cert);
