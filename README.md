@@ -8,7 +8,7 @@ https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/
 
 # History
 
-2020-08-20 Added Certificate authentication for Azure Functions
+2020-09-01 Added Certificate authentication for Azure Functions
 
 # Testing
 
