@@ -60,7 +60,7 @@ https://stackoverflow.com/questions/24107374/ssl-certificate-not-in-x509store-wh
 https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#access-client-certificate
 
 
-# Links Azure Networking
+# Links Azure Networking / Application Gateway
 
 https://docs.microsoft.com/en-us/azure/virtual-network/
 
@@ -69,3 +69,5 @@ https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-restrict-network
 https://docs.microsoft.com/en-us/azure/virtual-network/quickstart-create-nat-gateway-portal
 
 http://www.subnet-calculator.com/
+
+https://www.youtube.com/watch?v=8Wh6ZXf8LK8
