@@ -54,3 +54,5 @@ https://stackoverflow.com/questions/27307322/verify-server-certificate-against-s
 https://stackoverflow.com/questions/24107374/ssl-certificate-not-in-x509store-when-uploaded-to-azure-website#34719216
 
 https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#access-client-certificate
+
+https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-restrict-network-access-to-resources
