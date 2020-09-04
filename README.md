@@ -59,4 +59,11 @@ https://stackoverflow.com/questions/24107374/ssl-certificate-not-in-x509store-wh
 
 https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#access-client-certificate
 
+
+# Links Azure Networking
+
+https://docs.microsoft.com/en-us/azure/virtual-network/
+
 https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-restrict-network-access-to-resources
+
+http://www.subnet-calculator.com/
