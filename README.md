@@ -66,4 +66,6 @@ https://docs.microsoft.com/en-us/azure/virtual-network/
 
 https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-restrict-network-access-to-resources
 
+https://docs.microsoft.com/en-us/azure/virtual-network/quickstart-create-nat-gateway-portal
+
 http://www.subnet-calculator.com/
