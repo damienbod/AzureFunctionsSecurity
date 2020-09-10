@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
+using Microsoft.Extensions.Options;
 
 namespace FunctionNeworkSecurity
 {
     public class RandomStringFunction
     {
         private readonly ILogger _log;
+        private readonly MyConfigurationSecrets _myConfigurationSecrets;
 
-        public RandomStringFunction(ILoggerFactory loggerFactory)
+        public RandomStringFunction(ILoggerFactory loggerFactory,
+            IOptions<MyConfigurationSecrets> myConfigurationSecrets)
         {
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
+            _myConfigurationSecrets = myConfigurationSecrets.Value;
         }
 
         [FunctionName("RandomString")]
@@ -24,7 +28,7 @@ namespace FunctionNeworkSecurity
         {
             _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
 
-            return new OkObjectResult(GetEncodedRandomString());
+            return new OkObjectResult($"{_myConfigurationSecrets.MySecret}  {GetEncodedRandomString()}");
         }
 
         private string GetEncodedRandomString()
