@@ -7,3 +7,9 @@
 /.vs
 **/bin
 **/obj
+/NeworkSecurity/FunctionNeworkSecurity/Properties/PublishProfiles/FunctionNeworkSecurity - Zip Deploy.pubxml
+/NeworkSecurity/FunctionNeworkSecurity/Properties/ServiceDependencies/FunctionNeworkSecurity - Zip Deploy/profile.arm.json
+/NeworkSecurity/WebAppNeworkSecurity/Properties/PublishProfiles/WebAppNeworkSecurity - Web Deploy.pubxml
+/NeworkSecurity/WebAppNeworkSecurity/Properties/PublishProfiles/WebAppNeworkSecurity - Web Deploy.pubxml.user
+/NeworkSecurity/WebAppNeworkSecurity/Properties/ServiceDependencies/WebAppNeworkSecurity - Web Deploy/profile.arm.json
+/NeworkSecurity/WebAppNeworkSecurity/WebAppNeworkSecurity.csproj.user

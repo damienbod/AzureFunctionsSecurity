@@ -18,6 +18,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionCertificateConsoleC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateSelfSignedCertificateConsole", "FunctionCertificates\CreateSelfSignedCertificateConsole\CreateSelfSignedCertificateConsole.csproj", "{6A6D1F7B-0394-472C-9E77-3508C28CCBA8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionVnetGatewayWAF", "FunctionVnetGatewayWAF", "{0238E721-D922-47C9-8564-D334801FF458}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionNeworkSecurity", "NeworkSecurity\FunctionNeworkSecurity\FunctionNeworkSecurity.csproj", "{183ABEAB-D7FF-4D82-8E27-AEC36279640A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppNeworkSecurity", "NeworkSecurity\WebAppNeworkSecurity\WebAppNeworkSecurity.csproj", "{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionApiKey", "FunctionApiKey", "{2AF6D0D1-EAC3-4550-B0B7-6D76C623683C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,14 +48,25 @@ Global
 		{6A6D1F7B-0394-472C-9E77-3508C28CCBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A6D1F7B-0394-472C-9E77-3508C28CCBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A6D1F7B-0394-472C-9E77-3508C28CCBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{183ABEAB-D7FF-4D82-8E27-AEC36279640A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{183ABEAB-D7FF-4D82-8E27-AEC36279640A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{183ABEAB-D7FF-4D82-8E27-AEC36279640A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{183ABEAB-D7FF-4D82-8E27-AEC36279640A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{0EF52005-1C7D-457C-8C23-78775E723D51} = {2AF6D0D1-EAC3-4550-B0B7-6D76C623683C}
 		{841D9F43-3F51-4B10-A296-25EBB572FD5A} = {3C5DA87B-0DE3-496B-B452-0D60AA10F789}
 		{A63E3801-1491-475A-B819-1FE840003ADE} = {3C5DA87B-0DE3-496B-B452-0D60AA10F789}
 		{6A6D1F7B-0394-472C-9E77-3508C28CCBA8} = {3C5DA87B-0DE3-496B-B452-0D60AA10F789}
+		{183ABEAB-D7FF-4D82-8E27-AEC36279640A} = {0238E721-D922-47C9-8564-D334801FF458}
+		{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1} = {0238E721-D922-47C9-8564-D334801FF458}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFCD25B0-72AD-41B9-B2E5-7C0735064493}

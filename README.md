@@ -12,7 +12,7 @@ https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-auth
 
 # History
 
-2020-09-04 Added Certificate authentication for Azure Functions
+2020-09-01 Added Certificate authentication for Azure Functions
 
 # Testing
 
@@ -58,3 +58,16 @@ https://stackoverflow.com/questions/27307322/verify-server-certificate-against-s
 https://stackoverflow.com/questions/24107374/ssl-certificate-not-in-x509store-when-uploaded-to-azure-website#34719216
 
 https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#access-client-certificate
+
+
+# Links Azure Networking / Application Gateway
+
+https://docs.microsoft.com/en-us/azure/virtual-network/
+
+https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-restrict-network-access-to-resources
+
+https://docs.microsoft.com/en-us/azure/virtual-network/quickstart-create-nat-gateway-portal
+
+http://www.subnet-calculator.com/
+
+https://www.youtube.com/watch?v=8Wh6ZXf8LK8
