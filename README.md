@@ -16,6 +16,8 @@ https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual
 
 # History
 
+2020-09-10 Added Azure Function network security example
+
 2020-09-01 Added Certificate authentication for Azure Functions
 
 # Testing
