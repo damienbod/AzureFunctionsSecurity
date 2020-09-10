@@ -10,6 +10,10 @@ Securing Azure Functions using certificate authentication
 
 https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/
 
+Securing Azure Functions using an Azure Virtual Network
+
+https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/
+
 # History
 
 2020-09-01 Added Certificate authentication for Azure Functions
