@@ -14,6 +14,10 @@ Securing Azure Functions using an Azure Virtual Network
 
 https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/
 
+Securing Azure Key Vault inside a VNET and using from an Azure Function
+
+https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/
+
 # History
 
 2020-09-10 Added Azure Function network security example
