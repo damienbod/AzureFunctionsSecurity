@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace FunctionIdentityUserAccess
 {
@@ -28,7 +30,13 @@ namespace FunctionIdentityUserAccess
         {
             _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
 
-            return new OkObjectResult($"{_myConfigurationSecrets.MySecret}  {GetEncodedRandomString()}");
+            StringBuilder sb  = new StringBuilder();
+            foreach(var claim in req.HttpContext.User.Claims)
+            {
+                sb.AppendLine($"{claim.Type} {claim.Value}");
+            }
+
+            return new OkObjectResult($"{sb}  {GetEncodedRandomString()}");
         }
 
         private string GetEncodedRandomString()
