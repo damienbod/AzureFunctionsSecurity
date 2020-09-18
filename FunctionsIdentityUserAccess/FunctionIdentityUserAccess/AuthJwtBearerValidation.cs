@@ -19,11 +19,13 @@ namespace FunctionIdentityUserAccess
         private ILogger _log;
         private const string scopeType = @"http://schemas.microsoft.com/identity/claims/scope";
         private ConfigurationManager<OpenIdConnectConfiguration> _configurationManager;
-        
+        private ClaimsPrincipal _claimsPrincipal;
+
         private string _wellKnownEndpoint = string.Empty;
         private string _tenantId = string.Empty;
         private string _audience = string.Empty;
         private string _requiredScope = "access_as_user";
+
 
 
         public AuthJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
@@ -69,11 +71,11 @@ namespace FunctionIdentityUserAccess
             try
             {
                 SecurityToken securityToken;
-                var claimsPrincipal = tokenValidator.ValidateToken(accessToken, validationParameters, out securityToken);
+                _claimsPrincipal = tokenValidator.ValidateToken(accessToken, validationParameters, out securityToken);
 
-                if (IsScopeValid(claimsPrincipal, _requiredScope))
+                if (IsScopeValid(_requiredScope))
                 {
-                    return claimsPrincipal;
+                    return _claimsPrincipal;
                 }
 
                 return null;
@@ -85,7 +87,18 @@ namespace FunctionIdentityUserAccess
             return null;
         }
 
-        
+        public string GetPreferredUserName()
+        {
+            string preferredUsername = string.Empty;
+            var preferred_username = _claimsPrincipal.Claims.FirstOrDefault(t => t.Type == "preferred_username");
+            if (preferred_username != null)
+            {
+                preferredUsername = preferred_username.Value;
+            }
+
+            return preferredUsername;
+        }
+
         private async Task<OpenIdConnectConfiguration> GetOIDCWellknownConfiguration()
         {
             _log.LogDebug($"Get OIDC well known endpoints {_wellKnownEndpoint}");
@@ -95,16 +108,16 @@ namespace FunctionIdentityUserAccess
             return await _configurationManager.GetConfigurationAsync();
         }
 
-        private bool IsScopeValid(ClaimsPrincipal claimsPrincipal, string scopeName)
+        private bool IsScopeValid(string scopeName)
         {
-            if (claimsPrincipal == null)
+            if (_claimsPrincipal == null)
             {
                 _log.LogWarning($"Scope invalid {scopeName}");
                 return false;
             }
 
-            var scopeClaim = claimsPrincipal.HasClaim(x => x.Type == scopeType)
-                ? claimsPrincipal.Claims.First(x => x.Type == scopeType).Value
+            var scopeClaim = _claimsPrincipal.HasClaim(x => x.Type == scopeType)
+                ? _claimsPrincipal.Claims.First(x => x.Type == scopeType).Value
                 : string.Empty;
 
             if (string.IsNullOrEmpty(scopeClaim))

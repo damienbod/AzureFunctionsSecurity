@@ -35,19 +35,14 @@ namespace FunctionIdentityUserAccess
             try
             {
                 _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
-                ClaimsPrincipal principal;
+                
+                ClaimsPrincipal principal; // This can be used for any claims
                 if ((principal = await _authJwtValidation.ValidateTokenAsync(req.Headers["Authorization"])) == null)
                 {
                     return new UnauthorizedResult();
                 }
 
-                StringBuilder sb = new StringBuilder();
-                foreach (var claim in principal.Claims)
-                {
-                    sb.AppendLine($"{claim.Type} {claim.Value}");
-                }
-
-                return new OkObjectResult($"{sb}  {GetEncodedRandomString()}");
+                return new OkObjectResult($"Bearer token claim preferred_username: {_authJwtValidation.GetPreferredUserName()}  {GetEncodedRandomString()}");
             }
             catch (Exception ex)
             {
