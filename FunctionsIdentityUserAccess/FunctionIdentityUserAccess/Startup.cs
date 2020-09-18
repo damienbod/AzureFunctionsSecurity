@@ -15,45 +15,41 @@ namespace FunctionIdentityUserAccess
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var keyVaultEndpoint = Environment.GetEnvironmentVariable("AzureKeyVaultEndpoint");
+            builder.Services.AddOptions<MyConfigurationSecrets>()
+                .Configure<IConfiguration>((settings, configuration) =>
+                {
+                    configuration.GetSection("MyConfigurationSecrets").Bind(settings);
+                });
+        }
 
-            builder.Services.AddScoped<AuthJwtBearerValidation>();
-
-
+        public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
+        {
+            var builtConfig = builder.ConfigurationBuilder.Build();
+            var keyVaultEndpoint = builtConfig["AzureKeyVaultEndpoint"];
+            
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
                 // using Key Vault, either local dev or deployed
                 var azureServiceTokenProvider = new AzureServiceTokenProvider();
                 var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
-                var config = new ConfigurationBuilder()
+                builder.ConfigurationBuilder
                         .AddAzureKeyVault(keyVaultEndpoint)
                         .SetBasePath(Environment.CurrentDirectory)
                         .AddJsonFile("local.settings.json", true)
                         .AddEnvironmentVariables()
                     .Build();
-
-                builder.Services.AddSingleton<IConfiguration>(config);
             }
             else
             {
                 // local dev no Key Vault
-                var config = new ConfigurationBuilder()
-               .SetBasePath(Environment.CurrentDirectory)
-               .AddJsonFile("local.settings.json", true)
-               .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-               .AddEnvironmentVariables()
-               .Build();
-
-                builder.Services.AddSingleton<IConfiguration>(config);
-            }
-
-
-            builder.Services.AddOptions<MyConfigurationSecrets>()
-                .Configure<IConfiguration>((settings, configuration) =>
-                {
-                    configuration.GetSection("MyConfigurationSecrets").Bind(settings);
-                });
+                builder.ConfigurationBuilder
+                   .SetBasePath(Environment.CurrentDirectory)
+                   .AddJsonFile("local.settings.json", true)
+                   .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
+                   .AddEnvironmentVariables()
+                   .Build();
+            } 
         }
     }
 }
