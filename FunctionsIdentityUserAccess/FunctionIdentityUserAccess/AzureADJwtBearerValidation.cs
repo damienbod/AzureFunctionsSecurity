@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FunctionIdentityUserAccess
 {
-    public class AuthJwtBearerValidation
+    public class AzureADJwtBearerValidation
     {
         private IConfiguration _configuration;
         private ILogger _log;
@@ -25,10 +25,10 @@ namespace FunctionIdentityUserAccess
         private string _instance = string.Empty;
         private string _requiredScope = "access_as_user";
 
-        public AuthJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
+        public AzureADJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
         {
             _configuration = configuration;
-            _log = loggerFactory.CreateLogger<AuthJwtBearerValidation>();
+            _log = loggerFactory.CreateLogger<AzureADJwtBearerValidation>();
 
             _tenantId = _configuration["AzureAd:TenantId"];
             _audience = _configuration["AzureAd:ClientId"];

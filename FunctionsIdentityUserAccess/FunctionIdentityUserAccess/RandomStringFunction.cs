@@ -16,13 +16,13 @@ namespace FunctionIdentityUserAccess
     public class RandomStringFunction
     {
         private readonly ILogger _log;
-        private readonly AuthJwtBearerValidation _authJwtValidation;
+        private readonly AzureADJwtBearerValidation _azureADJwtBearerValidation;
 
         public RandomStringFunction(ILoggerFactory loggerFactory,
-            AuthJwtBearerValidation authJwtValidation)
+            AzureADJwtBearerValidation azureADJwtBearerValidation)
         {
             _log = loggerFactory.CreateLogger<RandomStringFunction>();;
-            _authJwtValidation = authJwtValidation;
+            _azureADJwtBearerValidation = azureADJwtBearerValidation;
         }
 
         [FunctionName("RandomString")]
@@ -34,12 +34,12 @@ namespace FunctionIdentityUserAccess
                 _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
                 
                 ClaimsPrincipal principal; // This can be used for any claims
-                if ((principal = await _authJwtValidation.ValidateTokenAsync(req.Headers["Authorization"])) == null)
+                if ((principal = await _azureADJwtBearerValidation.ValidateTokenAsync(req.Headers["Authorization"])) == null)
                 {
                     return new UnauthorizedResult();
                 }
 
-                return new OkObjectResult($"Bearer token claim preferred_username: {_authJwtValidation.GetPreferredUserName()}  {GetEncodedRandomString()}");
+                return new OkObjectResult($"Bearer token claim preferred_username: {_azureADJwtBearerValidation.GetPreferredUserName()}  {GetEncodedRandomString()}");
             }
             catch (Exception ex)
             {
