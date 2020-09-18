@@ -81,3 +81,14 @@ https://docs.microsoft.com/en-us/azure/virtual-network/quickstart-create-nat-gat
 http://www.subnet-calculator.com/
 
 https://www.youtube.com/watch?v=8Wh6ZXf8LK8
+
+
+# OpenID Connect Azure AD
+
+https://cmatskas.com/create-an-azure-ad-protected-api-that-calls-into-cosmosdb-with-azure-functions-and-net-core-3-1/
+
+https://anthonychu.ca/post/azure-functions-app-service-openid-connect-auth0/
+
+https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-openid-connect
+
+https://github.com/Azure/azure-functions-vs-build-sdk/issues/397

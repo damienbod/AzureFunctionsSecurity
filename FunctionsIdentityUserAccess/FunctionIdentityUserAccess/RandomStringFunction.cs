@@ -7,8 +7,9 @@ using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authorization;
 using System.Text;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FunctionIdentityUserAccess
 {
@@ -16,27 +17,42 @@ namespace FunctionIdentityUserAccess
     {
         private readonly ILogger _log;
         private readonly MyConfigurationSecrets _myConfigurationSecrets;
+        private readonly AuthJwtBearerValidation _authJwtValidation;
 
         public RandomStringFunction(ILoggerFactory loggerFactory,
-            IOptions<MyConfigurationSecrets> myConfigurationSecrets)
+            IOptions<MyConfigurationSecrets> myConfigurationSecrets,
+            AuthJwtBearerValidation authJwtValidation)
         {
             _log = loggerFactory.CreateLogger<RandomStringFunction>();
             _myConfigurationSecrets = myConfigurationSecrets.Value;
+            _authJwtValidation = authJwtValidation;
         }
 
         [FunctionName("RandomString")]
-        public IActionResult RandomString(
+        public async Task<IActionResult> RandomString(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
-
-            StringBuilder sb  = new StringBuilder();
-            foreach(var claim in req.HttpContext.User.Claims)
+            try
             {
-                sb.AppendLine($"{claim.Type} {claim.Value}");
-            }
+                _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
+                ClaimsPrincipal principal;
+                if ((principal = await _authJwtValidation.ValidateTokenAsync(req.Headers["Authorization"])) == null)
+                {
+                    return new UnauthorizedResult();
+                }
 
-            return new OkObjectResult($"{sb}  {GetEncodedRandomString()}");
+                StringBuilder sb = new StringBuilder();
+                foreach (var claim in principal.Claims)
+                {
+                    sb.AppendLine($"{claim.Type} {claim.Value}");
+                }
+
+                return new OkObjectResult($"{sb}  {GetEncodedRandomString()}");
+            }
+            catch (Exception ex)
+            {
+                return new OkObjectResult($"{ex.Message}");
+            }
         }
 
         private string GetEncodedRandomString()

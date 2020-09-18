@@ -17,6 +17,9 @@ namespace FunctionIdentityUserAccess
         {
             var keyVaultEndpoint = Environment.GetEnvironmentVariable("AzureKeyVaultEndpoint");
 
+            builder.Services.AddScoped<AuthJwtBearerValidation>();
+
+
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
                 // using Key Vault, either local dev or deployed
@@ -44,6 +47,7 @@ namespace FunctionIdentityUserAccess
 
                 builder.Services.AddSingleton<IConfiguration>(config);
             }
+
 
             builder.Services.AddOptions<MyConfigurationSecrets>()
                 .Configure<IConfiguration>((settings, configuration) =>
