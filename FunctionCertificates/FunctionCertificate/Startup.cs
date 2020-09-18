@@ -11,7 +11,6 @@ namespace FunctionCertificate
         {
             builder.Services.AddTransient<CertificateAuthService>();
             builder.Services.AddLogging();
-
         }
     }
 }

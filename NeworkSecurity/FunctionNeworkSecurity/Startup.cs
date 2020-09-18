@@ -34,10 +34,10 @@ namespace FunctionNeworkSecurity
                 var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
                 builder.ConfigurationBuilder
-                        .AddAzureKeyVault(keyVaultEndpoint)
-                        .SetBasePath(Environment.CurrentDirectory)
-                        .AddJsonFile("local.settings.json", true)
-                        .AddEnvironmentVariables()
+                    .AddAzureKeyVault(keyVaultEndpoint)
+                    .SetBasePath(Environment.CurrentDirectory)
+                    .AddJsonFile("local.settings.json", true)
+                    .AddEnvironmentVariables()
                     .Build();
             }
             else
