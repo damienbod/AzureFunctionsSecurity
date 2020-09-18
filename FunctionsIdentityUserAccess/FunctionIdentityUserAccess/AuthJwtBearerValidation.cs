@@ -22,6 +22,7 @@ namespace FunctionIdentityUserAccess
         private string _wellKnownEndpoint = string.Empty;
         private string _tenantId = string.Empty;
         private string _audience = string.Empty;
+        private string _instance = string.Empty;
         private string _requiredScope = "access_as_user";
 
         public AuthJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
@@ -31,7 +32,8 @@ namespace FunctionIdentityUserAccess
 
             _tenantId = _configuration["AzureAd:TenantId"];
             _audience = _configuration["AzureAd:ClientId"];
-            _wellKnownEndpoint = $"https://login.microsoftonline.com/{_tenantId}/v2.0/.well-known/openid-configuration";
+            _instance = _configuration["AzureAd:Instance"];
+            _wellKnownEndpoint = $"{_instance}{_tenantId}/v2.0/.well-known/openid-configuration";
         }
 
         public async Task<ClaimsPrincipal> ValidateTokenAsync(string authorizationHeader)
