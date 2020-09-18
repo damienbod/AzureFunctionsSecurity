@@ -16,12 +16,6 @@ namespace FunctionIdentityUserAccess
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddScoped<AuthJwtBearerValidation>();
-
-            builder.Services.AddOptions<MyConfigurationSecrets>()
-                .Configure<IConfiguration>((settings, configuration) =>
-                {
-                    configuration.GetSection("MyConfigurationSecrets").Bind(settings);
-                });
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)

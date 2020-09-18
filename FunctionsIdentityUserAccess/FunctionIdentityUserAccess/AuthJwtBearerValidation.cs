@@ -8,8 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading;
-using System.ComponentModel.Design;
 
 namespace FunctionIdentityUserAccess
 {
@@ -25,8 +23,6 @@ namespace FunctionIdentityUserAccess
         private string _tenantId = string.Empty;
         private string _audience = string.Empty;
         private string _requiredScope = "access_as_user";
-
-
 
         public AuthJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
         {

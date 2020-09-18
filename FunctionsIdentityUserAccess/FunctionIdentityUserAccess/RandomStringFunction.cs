@@ -16,15 +16,12 @@ namespace FunctionIdentityUserAccess
     public class RandomStringFunction
     {
         private readonly ILogger _log;
-        private readonly MyConfigurationSecrets _myConfigurationSecrets;
         private readonly AuthJwtBearerValidation _authJwtValidation;
 
         public RandomStringFunction(ILoggerFactory loggerFactory,
-            IOptions<MyConfigurationSecrets> myConfigurationSecrets,
             AuthJwtBearerValidation authJwtValidation)
         {
-            _log = loggerFactory.CreateLogger<RandomStringFunction>();
-            _myConfigurationSecrets = myConfigurationSecrets.Value;
+            _log = loggerFactory.CreateLogger<RandomStringFunction>();;
             _authJwtValidation = authJwtValidation;
         }
 
