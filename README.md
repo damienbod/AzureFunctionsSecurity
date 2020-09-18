@@ -2,22 +2,14 @@
 
 ## Blogs
 
-Securing Azure Functions using API Keys
+<ul>
+	<li><a href="https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/">Securing Azure Functions using API Keys</a></li>
+	<li><a href="https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/">Securing Azure Functions using Certificate authentication</a></li>
+	<li><a href="https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/">Securing Azure Functions using an Azure Virtual Network</a></li>
+	<li><a href="https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/">Securing Azure Key Vault inside a VNET and using from an Azure Function</a></li>
+	<li>Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens</li>
 
-https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/
-
-Securing Azure Functions using certificate authentication
-
-https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/
-
-Securing Azure Functions using an Azure Virtual Network
-
-https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/
-
-Securing Azure Key Vault inside a VNET and using from an Azure Function
-
-https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/
-
+</ul>
 # History
 
 2020-09-10 Added Azure Function network security example
@@ -92,3 +84,11 @@ https://anthonychu.ca/post/azure-functions-app-service-openid-connect-auth0/
 https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-openid-connect
 
 https://github.com/Azure/azure-functions-vs-build-sdk/issues/397
+
+https://blog.wille-zone.de/post/secure-azure-functions-with-jwt-token/#secure-azure-functions-with-jwt-access-tokens
+
+https://github.com/AzureAD/microsoft-identity-web
+
+https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2
+
+https://jwt.io/

@@ -39,7 +39,8 @@ namespace FunctionIdentityUserAccess
                     return new UnauthorizedResult();
                 }
 
-                return new OkObjectResult($"Bearer token claim preferred_username: {_azureADJwtBearerValidation.GetPreferredUserName()}  {GetEncodedRandomString()}");
+                var claimsName = $"Bearer token claim preferred_username: {_azureADJwtBearerValidation.GetPreferredUserName()}";
+                return new OkObjectResult($"{claimsName} {GetEncodedRandomString()}");
             }
             catch (Exception ex)
             {
