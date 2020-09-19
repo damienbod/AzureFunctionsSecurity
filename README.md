@@ -10,6 +10,7 @@
 	<li>Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens</li>
 
 </ul>
+
 # History
 
 2020-09-19  Updated Azure Functions configurations to recommended way
