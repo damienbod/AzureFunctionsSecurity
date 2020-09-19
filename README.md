@@ -12,6 +12,10 @@
 </ul>
 # History
 
+2020-09-19  Updated Azure Functions configurations to recommended way
+
+2020-09-19 Added Azure Function oauth security example user access tokens
+
 2020-09-10 Added Azure Function network security example
 
 2020-09-01 Added Certificate authentication for Azure Functions
