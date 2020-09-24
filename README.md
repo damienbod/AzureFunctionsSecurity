@@ -7,7 +7,7 @@
 	<li><a href="https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/">Securing Azure Functions using Certificate authentication</a></li>
 	<li><a href="https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/">Securing Azure Functions using an Azure Virtual Network</a></li>
 	<li><a href="https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/">Securing Azure Key Vault inside a VNET and using from an Azure Function</a></li>
-	<li>Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens</li>
+	<li><a href="https://damienbod.com/2020/09/24/securing-azure-functions-using-azure-ad-jwt-bearer-token-authentication-for-user-access-tokens/">Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens</a></li>
 
 </ul>
 
