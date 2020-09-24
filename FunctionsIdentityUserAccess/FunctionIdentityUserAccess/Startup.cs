@@ -1,4 +1,4 @@
-﻿using FunctionNeworkSecurity;
+﻿using FunctionIdentityUserAccess;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
@@ -8,25 +8,21 @@ using System;
 using System.Reflection;
 
 [assembly: FunctionsStartup(typeof(Startup))]
-namespace FunctionNeworkSecurity
+namespace FunctionIdentityUserAccess
 {
 
     public class Startup : FunctionsStartup
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddOptions<MyConfigurationSecrets>()
-                .Configure<IConfiguration>((settings, configuration) =>
-                {
-                    configuration.GetSection("MyConfigurationSecrets").Bind(settings);
-                });
+            builder.Services.AddScoped<AzureADJwtBearerValidation>();
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
         {
             var builtConfig = builder.ConfigurationBuilder.Build();
             var keyVaultEndpoint = builtConfig["AzureKeyVaultEndpoint"];
-
+            
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
                 // using Key Vault, either local dev or deployed
@@ -34,10 +30,10 @@ namespace FunctionNeworkSecurity
                 var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
                 builder.ConfigurationBuilder
-                    .AddAzureKeyVault(keyVaultEndpoint)
-                    .SetBasePath(Environment.CurrentDirectory)
-                    .AddJsonFile("local.settings.json", true)
-                    .AddEnvironmentVariables()
+                        .AddAzureKeyVault(keyVaultEndpoint)
+                        .SetBasePath(Environment.CurrentDirectory)
+                        .AddJsonFile("local.settings.json", true)
+                        .AddEnvironmentVariables()
                     .Build();
             }
             else
@@ -49,7 +45,7 @@ namespace FunctionNeworkSecurity
                    .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
                    .AddEnvironmentVariables()
                    .Build();
-            }
+            } 
         }
     }
 }
