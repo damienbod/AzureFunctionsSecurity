@@ -13,6 +13,8 @@
 
 # History
 
+2020-09-30 Updated Microsoft.Identity.Web to 1.0.0
+
 2020-09-19  Updated Azure Functions configurations to recommended way
 
 2020-09-19 Added Azure Function oauth security example user access tokens
