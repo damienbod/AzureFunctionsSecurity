@@ -13,7 +13,7 @@
 
 # History
 
-2021-03-07  Update packages and using DefaultAzureCredential for Azure Key vault access
+2021-03-07  Update packages and using DefaultAzureCredential for Azure Key vault access,  Microsoft.Identity.Web to 1.7.0
 
 2020-10-25 Updated Microsoft.Identity.Web to 1.2.0, Updated Nuget packages
 
