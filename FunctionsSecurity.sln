@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionsIdentityUserAccess
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebIdentityUserAccess", "FunctionsIdentityUserAccess\WebIdentityUserAccess\WebIdentityUserAccess.csproj", "{D0514287-BF10-4F4B-8EC5-BE675C0DB74D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionIdentityUserAccess", "FunctionsIdentityUserAccess\FunctionIdentityUserAccess\FunctionIdentityUserAccess.csproj", "{5D0D5B31-5C79-4C68-9872-5A55C5D9ECCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionIdentityUserAccess", "FunctionsIdentityUserAccess\FunctionIdentityUserAccess\FunctionIdentityUserAccess.csproj", "{5D0D5B31-5C79-4C68-9872-5A55C5D9ECCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,11 +8,11 @@ namespace AzureCertAuthClientConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        async static Task Main(string[] args)
         {
             Console.WriteLine("Let's try to get a random string from the Azure Function using a certificate!");
             Console.WriteLine("----");
-            var result = CallApi().GetAwaiter().GetResult();
+            var result = await CallApi();
             Console.WriteLine($"{result}");
             Console.WriteLine("----");
             Console.WriteLine($"Success!");
