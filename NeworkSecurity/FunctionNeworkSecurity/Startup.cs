@@ -1,4 +1,5 @@
-﻿using FunctionNeworkSecurity;
+﻿using Azure.Identity;
+using FunctionNeworkSecurity;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
@@ -30,14 +31,11 @@ namespace FunctionNeworkSecurity
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
                 // using Key Vault, either local dev or deployed
-                var azureServiceTokenProvider = new AzureServiceTokenProvider();
-                var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-
                 builder.ConfigurationBuilder
-                    .AddAzureKeyVault(keyVaultEndpoint)
-                    .SetBasePath(Environment.CurrentDirectory)
-                    .AddJsonFile("local.settings.json", true)
-                    .AddEnvironmentVariables()
+                        .SetBasePath(Environment.CurrentDirectory)
+                        .AddAzureKeyVault(new Uri(keyVaultEndpoint), new DefaultAzureCredential())
+                        .AddJsonFile("local.settings.json", true)
+                        .AddEnvironmentVariables()
                     .Build();
             }
             else

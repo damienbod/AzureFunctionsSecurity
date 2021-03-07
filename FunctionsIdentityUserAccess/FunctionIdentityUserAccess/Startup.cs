@@ -1,7 +1,6 @@
-﻿using FunctionIdentityUserAccess;
+﻿using Azure.Identity;
+using FunctionIdentityUserAccess;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,16 +21,12 @@ namespace FunctionIdentityUserAccess
         {
             var builtConfig = builder.ConfigurationBuilder.Build();
             var keyVaultEndpoint = builtConfig["AzureKeyVaultEndpoint"];
-            
+
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
-                // using Key Vault, either local dev or deployed
-                var azureServiceTokenProvider = new AzureServiceTokenProvider();
-                var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-
                 builder.ConfigurationBuilder
-                        .AddAzureKeyVault(keyVaultEndpoint)
                         .SetBasePath(Environment.CurrentDirectory)
+                        .AddAzureKeyVault(new Uri(keyVaultEndpoint), new DefaultAzureCredential())
                         .AddJsonFile("local.settings.json", true)
                         .AddEnvironmentVariables()
                     .Build();
