@@ -30,6 +30,10 @@ namespace FunctionNeworkSecurity
 
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
+                // you might need this depending on the dev setup
+                //var credential = new DefaultAzureCredential(
+                //new DefaultAzureCredentialOptions { ExcludeSharedTokenCacheCredential = true });
+
                 // using Key Vault, either local dev or deployed
                 builder.ConfigurationBuilder
                         .SetBasePath(Environment.CurrentDirectory)

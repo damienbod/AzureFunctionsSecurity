@@ -1,4 +1,5 @@
 ﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using FunctionIdentityUserAccess;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -19,14 +20,19 @@ namespace FunctionIdentityUserAccess
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
         {
+           
             var builtConfig = builder.ConfigurationBuilder.Build();
             var keyVaultEndpoint = builtConfig["AzureKeyVaultEndpoint"];
 
             if (!string.IsNullOrEmpty(keyVaultEndpoint))
             {
+                // you might need this depending on the dev setup
+                var credential = new DefaultAzureCredential(
+                    new DefaultAzureCredentialOptions { ExcludeSharedTokenCacheCredential = true });
+
                 builder.ConfigurationBuilder
                         .SetBasePath(Environment.CurrentDirectory)
-                        .AddAzureKeyVault(new Uri(keyVaultEndpoint), new DefaultAzureCredential())
+                        .AddAzureKeyVault(new Uri(keyVaultEndpoint), credential)
                         .AddJsonFile("local.settings.json", true)
                         .AddEnvironmentVariables()
                     .Build();
