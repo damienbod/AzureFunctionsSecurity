@@ -2,18 +2,15 @@
 
 ## Blogs
 
-<ul>
-	<li><a href="https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/">Securing Azure Functions using API Keys</a></li>
-	<li><a href="https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/">Securing Azure Functions using Certificate authentication</a></li>
-	<li><a href="https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/">Securing Azure Functions using an Azure Virtual Network</a></li>
-	<li><a href="https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/">Securing Azure Key Vault inside a VNET and using from an Azure Function</a></li>
-	<li><a href="https://damienbod.com/2020/09/24/securing-azure-functions-using-azure-ad-jwt-bearer-token-authentication-for-user-access-tokens/">Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens</a></li>
+[Securing Azure Functions using API Keys](https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/)
+[Securing Azure Functions using Certificate authentication](https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/)
+[Securing Azure Functions using an Azure Virtual Network](https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/)
+[Securing Azure Key Vault inside a VNET and using from an Azure Function](https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/)
+[Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens](https://damienbod.com/2020/09/24/securing-azure-functions-using-azure-ad-jwt-bearer-token-authentication-for-user-access-tokens/)
 
-</ul>
+## History
 
-# History
-
-- 2024-07-03 Updated FunctionApiKeys to v4 project
+- 2024-07-03 Updated FunctionApiKeys to v4 project, .NET 8
 - 2021-03-07 Update packages and using DefaultAzureCredential for Azure Key vault access,  Microsoft.Identity.Web to 1.7.0
 - 2020-10-25 Updated Microsoft.Identity.Web to 1.2.0, Updated Nuget packages
 - 2020-09-30 Updated Microsoft.Identity.Web to 1.0.0
