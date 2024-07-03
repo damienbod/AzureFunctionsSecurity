@@ -1,62 +1,56 @@
-using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 
-namespace FunctionApiKeys
+namespace FunctionApiKeys;
+
+public class RandomStringFunction
 {
-    public class RandomStringFunction
+    private readonly ILogger<RandomStringFunction> _logger;
+
+    public RandomStringFunction(ILogger<RandomStringFunction> logger)
     {
-        private readonly ILogger _log;
+        _logger = logger;
+    }
 
-        public RandomStringFunction(ILoggerFactory loggerFactory)
-        {
-            _log = loggerFactory.CreateLogger<RandomStringFunction>();
-        }
+    [Function("RandomStringAuthLevelAnonymous")]
+    public IActionResult RandomStringAuthLevelAnonymous(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
+    {
+        _logger.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
 
-        [FunctionName("RandomStringAuthLevelAnonymous")]
-        public IActionResult RandomStringAuthLevelAnonymous(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
-        {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
+        return new OkObjectResult(GetEncodedRandomString());
+    }
 
-            return new OkObjectResult(GetEncodedRandomString());
-        }
+    [Function("RandomStringAuthLevelFunc")]
+    public IActionResult RandomStringAuthLevelFunc(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
+    {
+        _logger.LogInformation("C# HTTP trigger RandomStringAuthLevelFunc processed a request.");
 
-        [FunctionName("RandomStringAuthLevelFunc")]
-        public IActionResult RandomStringAuthLevelFunc(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
-        {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelFunc processed a request.");
+        return new OkObjectResult(GetEncodedRandomString());
+    }
 
-            return new OkObjectResult(GetEncodedRandomString());
-        }
+    [Function("RandomStringAuthLevelAdmin")]
+    public IActionResult RandomStringAuthLevelAdmin(
+       [HttpTrigger(AuthorizationLevel.Admin, "get", Route = null)] HttpRequest req)
+    {
+        _logger.LogInformation("C# HTTP trigger RandomStringAuthLevelAdmin processed a request.");
 
-        [FunctionName("RandomStringAuthLevelAdmin")]
-        public IActionResult RandomStringAuthLevelAdmin(
-           [HttpTrigger(AuthorizationLevel.Admin, "get", Route = null)] HttpRequest req)
-        {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAdmin processed a request.");
+        return new OkObjectResult(GetEncodedRandomString());
+    }
 
-            return new OkObjectResult(GetEncodedRandomString());
-        }
+    private string GetEncodedRandomString()
+    {
+        var base64 = Convert.ToBase64String(GenerateRandomBytes(100));
+        return HtmlEncoder.Default.Encode(base64);
+    }
 
-        private string GetEncodedRandomString()
-        {
-            var base64 = Convert.ToBase64String(GenerateRandomBytes(100));
-            return HtmlEncoder.Default.Encode(base64);
-        }
-
-        private byte[] GenerateRandomBytes(int length)
-        {
-            using var randonNumberGen = new RNGCryptoServiceProvider();
-            var byteArray = new byte[length];
-            randonNumberGen.GetBytes(byteArray);
-            return byteArray;
-        }
+    private byte[] GenerateRandomBytes(int length)
+    {
+        return RandomNumberGenerator.GetBytes(length);
     }
 }
