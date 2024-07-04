@@ -45,7 +45,6 @@ http://localhost:7071/api/RandomStringAuthLevelFunc
 
 https://functioncertificate20200829215001.azurewebsites.net/api/randomString
 
-
 # Links
 
 https://docs.microsoft.com/en-us/azure/azure-functions/security-concepts

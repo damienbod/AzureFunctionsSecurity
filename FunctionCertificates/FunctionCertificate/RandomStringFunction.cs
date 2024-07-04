@@ -26,17 +26,17 @@ public class RandomStringFunction
     /// https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Certificate/src/CertificateAuthenticationHandler.cs
     /// https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#aspnet-sample
     /// </summary>
-    /// <param name="req"></param>
-    /// <returns></returns>
     [Function("RandomStringCertAuth")]
-    public IActionResult RandomStringCertAuth(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
+    public IActionResult RandomStringCertAuth([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] 
+        HttpRequest request)
     {
         _logger.LogInformation("C# HTTP trigger RandomString processed a request.");
 
         StringValues cert;
-        if (req.Headers.TryGetValue("X-ARR-ClientCert", out cert))
+        if (request.Headers.TryGetValue("X-ARR-ClientCert", out cert))
         {
+            if (cert[0] == null) throw new ArgumentNullException(nameof(cert));
+
             byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
             X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
 

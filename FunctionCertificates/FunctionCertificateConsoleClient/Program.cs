@@ -21,10 +21,10 @@ class Program
     {
         var cert = new X509Certificate2("client401.pfx", "1234");
 
-        var azureRandomStringBasicUrl = "https://functioncertificate20200830225033.azurewebsites.net/api/RandomStringCertAuth";
+        var azureRandomStringBasicUrl = "https://damien-test-fn.azurewebsites.net/api/RandomStringCertAuth";
         return await CallAzureDeployedAPI(azureRandomStringBasicUrl, cert);
 
-        //var localRandomStringBasicUrl = "http://localhost:7071/api/RandomStringCertAuth";
+        //var localRandomStringBasicUrl = "http://localhost:7108/api/RandomStringCertAuth";
         //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl, cert);
 
     }
@@ -69,9 +69,11 @@ class Program
 
             request.Headers.Add("X-ARR-ClientCert", Convert.ToBase64String(clientCertificate.RawData));
             var response = await client.SendAsync(request);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
+              
                 return responseContent;
             }
 
