@@ -1,5 +1,7 @@
 # Azure Functions Security
 
+[![.NET](https://github.com/damienbod/AzureFunctionsSecurity/actions/workflows/dotnet.yml/badge.svg)](https://github.com/damienbod/AzureFunctionsSecurity/actions/workflows/dotnet.yml)
+
 ## Blogs
 
 [Securing Azure Functions using API Keys](https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/)
