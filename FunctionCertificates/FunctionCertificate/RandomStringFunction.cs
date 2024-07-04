@@ -32,8 +32,6 @@ public class RandomStringFunction
     {
         _logger.LogInformation("C# HTTP trigger RandomString processed a request.");
 
-        var clientCert = request.HttpContext.Request.GetRequestContext().ClientCertificate;
-
         StringValues cert;
         if (request.Headers.TryGetValue("X-ARR-ClientCert", out cert))
         {

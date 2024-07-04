@@ -28,30 +28,6 @@ class Program
         //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl, cert);
     }
 
-    // Test Azure deployment (now using only X-ARR-ClientCert in v4 isolated version)
-    //private static async Task<string> CallAzureDeployedAPI(string url, X509Certificate2 clientCertificate)
-    //{
-    //    var handler = new HttpClientHandler();
-    //    handler.ClientCertificates.Add(clientCertificate);
-    //    var client = new HttpClient(handler);
-
-    //    var request = new HttpRequestMessage()
-    //    {
-    //        RequestUri = new Uri(url),
-    //        Method = HttpMethod.Get,
-    //    };
-    //    var response = await client.SendAsync(request);
-    //    var responseContent = await response.Content.ReadAsStringAsync();
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        Console.WriteLine(responseContent);
-    //        return responseContent;
-    //    }
-
-    //    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
-    //}
-
-    // Local dev
     private static async Task<string> CallApiXARRClientCertHeader(string url, X509Certificate2 clientCertificate)
     {
         try
@@ -83,4 +59,28 @@ class Program
             throw new ApplicationException($"Exception {e}");
         }
     }
+
+    // v3 or older
+    // Test Azure deployment (now using only X-ARR-ClientCert in v4 isolated version)
+    //private static async Task<string> CallAzureDeployedAPI(string url, X509Certificate2 clientCertificate)
+    //{
+    //    var handler = new HttpClientHandler();
+    //    handler.ClientCertificates.Add(clientCertificate);
+    //    var client = new HttpClient(handler);
+
+    //    var request = new HttpRequestMessage()
+    //    {
+    //        RequestUri = new Uri(url),
+    //        Method = HttpMethod.Get,
+    //    };
+    //    var response = await client.SendAsync(request);
+    //    var responseContent = await response.Content.ReadAsStringAsync();
+    //    if (response.IsSuccessStatusCode)
+    //    {
+    //        Console.WriteLine(responseContent);
+    //        return responseContent;
+    //    }
+
+    //    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+    //}
 }
