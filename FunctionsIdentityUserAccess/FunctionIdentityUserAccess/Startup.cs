@@ -1,5 +1,4 @@
 ﻿using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using FunctionIdentityUserAccess;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +19,7 @@ namespace FunctionIdentityUserAccess
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
         {
-           
+
             var builtConfig = builder.ConfigurationBuilder.Build();
             var keyVaultEndpoint = builtConfig["AzureKeyVaultEndpoint"];
 
@@ -46,7 +45,7 @@ namespace FunctionIdentityUserAccess
                    .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
                    .AddEnvironmentVariables()
                    .Build();
-            } 
+            }
         }
     }
 }

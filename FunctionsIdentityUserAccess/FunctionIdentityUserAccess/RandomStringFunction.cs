@@ -1,14 +1,12 @@
-using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
-using Microsoft.Extensions.Options;
-using System.Text;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FunctionIdentityUserAccess
@@ -21,7 +19,7 @@ namespace FunctionIdentityUserAccess
         public RandomStringFunction(ILoggerFactory loggerFactory,
             AzureADJwtBearerValidation azureADJwtBearerValidation)
         {
-            _log = loggerFactory.CreateLogger<RandomStringFunction>();;
+            _log = loggerFactory.CreateLogger<RandomStringFunction>(); ;
             _azureADJwtBearerValidation = azureADJwtBearerValidation;
         }
 
@@ -32,7 +30,7 @@ namespace FunctionIdentityUserAccess
             try
             {
                 _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
-                
+
                 ClaimsPrincipal principal; // This can be used for any claims
                 if ((principal = await _azureADJwtBearerValidation.ValidateTokenAsync(req.Headers["Authorization"])) == null)
                 {

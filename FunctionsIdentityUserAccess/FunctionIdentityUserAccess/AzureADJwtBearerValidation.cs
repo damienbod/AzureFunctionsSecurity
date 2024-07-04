@@ -1,13 +1,13 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FunctionIdentityUserAccess
 {
@@ -51,7 +51,7 @@ namespace FunctionIdentityUserAccess
             var accessToken = authorizationHeader.Substring("Bearer ".Length);
 
             var oidcWellknownEndpoints = await GetOIDCWellknownConfiguration();
- 
+
             var tokenValidator = new JwtSecurityTokenHandler();
 
             var validationParameters = new TokenValidationParameters

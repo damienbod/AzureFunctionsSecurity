@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
-using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Encodings.Web;
 
 namespace FunctionCertificate;
@@ -27,7 +27,7 @@ public class RandomStringFunction
     /// https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth#aspnet-sample
     /// </summary>
     [Function("RandomStringCertAuth")]
-    public IActionResult RandomStringCertAuth([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] 
+    public IActionResult RandomStringCertAuth([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]
         HttpRequest request)
     {
         _logger.LogInformation("C# HTTP trigger RandomString processed a request.");

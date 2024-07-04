@@ -21,10 +21,12 @@ class Program
 
         // Client self signed certificate
         var client = createClientServerAuthCerts.NewClientSelfSignedCertificate(
-            new DistinguishedName { 
-                CommonName = "functionsCertAuth", 
-                Country = "CH", 
-                Organisation="damienbod" },
+            new DistinguishedName
+            {
+                CommonName = "functionsCertAuth",
+                Country = "CH",
+                Organisation = "damienbod"
+            },
             new ValidityPeriod { ValidFrom = DateTime.UtcNow, ValidTo = DateTime.UtcNow.AddYears(10) },
             dnsName);
 

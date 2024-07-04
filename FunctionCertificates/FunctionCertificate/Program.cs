@@ -1,14 +1,14 @@
 using Azure.Identity;
 using FunctionCertificate;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
-    .ConfigureHostConfiguration(builder => 
+    .ConfigureHostConfiguration(builder =>
     {
         var builtConfig = builder.Build();
         var keyVaultEndpoint = builtConfig["AzureKeyVaultEndpoint"];
