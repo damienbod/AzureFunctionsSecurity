@@ -36,9 +36,6 @@ public class CertificateAuthService
     /// <summary>
     /// WEBSITE_LOAD_CERTIFICATES APP.SETTING required in Azure to work
     /// </summary>
-    /// <param name="certificateThumbprint"></param>
-    /// <param name="log"></param>
-    /// <returns></returns>
     private X509Certificate2 GetCertificate(string certificateThumbprint, ILogger log)
     {
         if (string.IsNullOrEmpty(certificateThumbprint))

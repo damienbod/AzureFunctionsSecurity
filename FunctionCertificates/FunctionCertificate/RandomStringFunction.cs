@@ -32,18 +32,20 @@ public class RandomStringFunction
     {
         _logger.LogInformation("C# HTTP trigger RandomString processed a request.");
 
+        var clientCert = request.HttpContext.Request.GetRequestContext().ClientCertificate;
+
         StringValues cert;
         if (request.Headers.TryGetValue("X-ARR-ClientCert", out cert))
         {
             if (cert[0] == null) throw new ArgumentNullException(nameof(cert));
 
             byte[] clientCertBytes = Convert.FromBase64String(cert[0]);
-            X509Certificate2 clientCert = new X509Certificate2(clientCertBytes);
+            var clientCert = new X509Certificate2(clientCertBytes);
 
             // Validate Thumbprint
             if (clientCert.Thumbprint != "5726F1DDBC5BA5986A21BDFCBA1D88C74C8EDE90")
             {
-                return new BadRequestObjectResult("A valid client certificate is not used");
+                return new BadRequestObjectResult($"A valid client certificate is not used: {clientCert.Thumbprint}");
             }
 
             // Validate NotBefore and NotAfter
