@@ -13,3 +13,7 @@
 /NeworkSecurity/WebAppNeworkSecurity/Properties/PublishProfiles/WebAppNeworkSecurity - Web Deploy.pubxml.user
 /NeworkSecurity/WebAppNeworkSecurity/Properties/ServiceDependencies/WebAppNeworkSecurity - Web Deploy/profile.arm.json
 /NeworkSecurity/WebAppNeworkSecurity/WebAppNeworkSecurity.csproj.user
+/FunctionCertificates/FunctionCertificate/Properties/PublishProfiles/FunctionCertificate20240704202458 - Zip Deploy.pubxml
+/FunctionCertificates/FunctionCertificate/Properties/serviceDependencies.FunctionCertificate20240704202458 - Zip Deploy.json
+/FunctionCertificates/FunctionCertificate/Properties/ServiceDependencies/FunctionCertificate20240704202458 - Zip Deploy/appInsights1.arm.json
+/FunctionCertificates/FunctionCertificate/Properties/ServiceDependencies/FunctionCertificate20240704202458 - Zip Deploy/storage1.arm.json
