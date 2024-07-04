@@ -5,9 +5,13 @@
 ## Blogs
 
 [Securing Azure Functions using API Keys](https://damienbod.com/2020/08/17/securing-azure-functions-using-api-keys/)
+
 [Securing Azure Functions using Certificate authentication](https://damienbod.com/2020/09/04/securing-azure-functions-using-certificate-authentication/)
+
 [Securing Azure Functions using an Azure Virtual Network](https://damienbod.com/2020/09/10/securing-azure-functions-using-an-azure-virtual-network/)
+
 [Securing Azure Key Vault inside a VNET and using from an Azure Function](https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/)
+
 [Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens](https://damienbod.com/2020/09/24/securing-azure-functions-using-azure-ad-jwt-bearer-token-authentication-for-user-access-tokens/)
 
 ## History
