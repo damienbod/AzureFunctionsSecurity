@@ -34,7 +34,8 @@ public class RandomStringFunction
                 return new UnauthorizedResult();
             }
 
-            var claimsName = $"Bearer token claim preferred_username: {_meIdJwtBearerValidation.GetPreferredUserName()}";
+            var preferredUsername = _meIdJwtBearerValidation.GetPreferredUserName(tokenValidationResult.ClaimsIdentity);
+            var claimsName = $"Bearer token claim preferred_username: {preferredUsername}";
 
             return new OkObjectResult($"{claimsName} {GetEncodedRandomString()}");
         }

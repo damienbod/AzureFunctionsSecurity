@@ -14,7 +14,6 @@ public class EntraIDJwtBearerValidation
     private ILogger _log;
     private const string scopeType = @"http://schemas.microsoft.com/identity/claims/scope";
     private ConfigurationManager<OpenIdConnectConfiguration>? _configurationManager;
-    private ClaimsIdentity? _claimsIdentity;
 
     private string _wellKnownEndpoint = string.Empty;
     private string? _tenantId = string.Empty;
@@ -76,7 +75,7 @@ public class EntraIDJwtBearerValidation
         {
             var tokenValidationResult = await tokenValidator.ValidateTokenAsync(accessToken, validationParameters);
 
-            if (tokenValidationResult.IsValid && IsScopeValid(_requiredScope))
+            if (tokenValidationResult.IsValid && IsScopeValid(_requiredScope, tokenValidationResult.ClaimsIdentity))
             {
                 return tokenValidationResult;
             }
@@ -90,12 +89,12 @@ public class EntraIDJwtBearerValidation
         return null;
     }
 
-    public string GetPreferredUserName()
+    public string GetPreferredUserName(ClaimsIdentity claimsIdentity)
     {
         var preferredUsername = string.Empty;
-        if (_claimsIdentity != null)
+        if (claimsIdentity != null)
         {
-            var preferred_username = _claimsIdentity.Claims.FirstOrDefault(t => t.Type == "preferred_username");
+            var preferred_username = claimsIdentity.Claims.FirstOrDefault(t => t.Type == "preferred_username");
             if (preferred_username != null)
             {
                 preferredUsername = preferred_username.Value;
@@ -114,16 +113,16 @@ public class EntraIDJwtBearerValidation
         return await _configurationManager.GetConfigurationAsync();
     }
 
-    private bool IsScopeValid(string scopeName)
+    private bool IsScopeValid(string scopeName, ClaimsIdentity claimsIdentity)
     {
-        if (_claimsIdentity == null)
+        if (claimsIdentity == null)
         {
             _log.LogWarning("Scope invalid {scopeName}", scopeName);
             return false;
         }
 
-        var scopeClaim = _claimsIdentity.HasClaim(x => x.Type == scopeType)
-            ? _claimsIdentity.Claims.First(x => x.Type == scopeType).Value
+        var scopeClaim = claimsIdentity.HasClaim(x => x.Type == scopeType)
+            ? claimsIdentity.Claims.First(x => x.Type == scopeType).Value
             : string.Empty;
 
         if (string.IsNullOrEmpty(scopeClaim))
