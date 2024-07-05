@@ -35,9 +35,6 @@ builder.Services.AddRazorPages()
         options.Filters.Add(new AuthorizeFilter(policy));
     }).AddMicrosoftIdentityUI();
 
-builder.Services.AddServerSideBlazor()
-    .AddMicrosoftIdentityConsentHandler();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
