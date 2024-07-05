@@ -1,5 +1,5 @@
 using Azure.Identity;
-using FunctionCertificate;
+using FunctionIdentityUserAccess;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +15,10 @@ var host = new HostBuilder()
 
         if (!string.IsNullOrEmpty(keyVaultEndpoint))
         {
+            // you might need this depending on the dev setup
+            var credential = new DefaultAzureCredential(
+                new DefaultAzureCredentialOptions { ExcludeSharedTokenCacheCredential = true });
+
             // using Key Vault, either local dev or deployed
             builder.SetBasePath(Environment.CurrentDirectory)
                 .AddAzureKeyVault(new Uri(keyVaultEndpoint), new DefaultAzureCredential())
@@ -26,17 +30,17 @@ var host = new HostBuilder()
         {
             // local dev no Key Vault
             builder.SetBasePath(Environment.CurrentDirectory)
-               .AddJsonFile("local.settings.json", true)
-               .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-               .AddEnvironmentVariables()
-               .Build();
+            .AddJsonFile("local.settings.json", true)
+            .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
+            .AddEnvironmentVariables()
+            .Build();
         }
     })
     .ConfigureServices(services =>
     {
-        services.AddTransient<CertificateAuthService>();
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
+        services.AddScoped<EntraIDJwtBearerValidation>();
     })
     .Build();
 

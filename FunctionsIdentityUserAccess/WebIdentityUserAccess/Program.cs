@@ -1,26 +1,62 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
-namespace WebIdentityUserAccess
-{
-    public class Program
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddOptions();
+
+string[]? initialScopes = builder.Configuration.GetValue<string>("CallApi:ScopeForAccessToken")?.Split(' ');
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "AzureAd", subscribeToOpenIdConnectMiddlewareDiagnosticsEvents: true)
+    .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+    .AddDistributedTokenCaches();
+
+builder.Services
+    .AddAuthorization(options =>
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+        options.FallbackPolicy = options.DefaultPolicy;
+    });
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+builder.Services.AddRazorPages()
+    .AddMvcOptions(options =>
+    {
+        var policy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
+        options.Filters.Add(new AuthorizeFilter(policy));
+    }).AddMicrosoftIdentityUI();
+
+builder.Services.AddServerSideBlazor()
+    .AddMicrosoftIdentityConsentHandler();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapRazorPages();
+app.MapControllers();
+
+app.Run();

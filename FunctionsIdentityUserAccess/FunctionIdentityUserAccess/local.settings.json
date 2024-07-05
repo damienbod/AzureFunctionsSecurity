@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+  },
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "TenantId": "7ff95b15-dc21-4ba6-bc92-824856578fc1",
+    "ClientId": "98328d53-55ec-4f14-8407-0ca5ff2f2d20" // Audience 
+  }
+}

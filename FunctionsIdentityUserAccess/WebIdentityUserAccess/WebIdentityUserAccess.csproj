@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>c50bef43-dbf2-4cdb-a7a6-72f8262b6fbe</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.7.0" />
-    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.7.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.20.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.20.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
   
 </Project>

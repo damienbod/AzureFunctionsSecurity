@@ -22,7 +22,7 @@ class Program
         var cert = new X509Certificate2("functionsCertAuth.pfx", "1234");
         var azureRandomStringBasicUrl = "https://functioncertificate20240704202458.azurewebsites.net/api/RandomStringCertAuth";
         return await CallApiXARRClientCertHeader(azureRandomStringBasicUrl, cert);
-  
+
         //var cert = new X509Certificate2("client401.pfx", "1234");
         //var localRandomStringBasicUrl = "http://localhost:7108/api/RandomStringCertAuth";
         //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl, cert);
@@ -48,7 +48,7 @@ class Program
             var responseContent = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-              
+
                 return responseContent;
             }
 
