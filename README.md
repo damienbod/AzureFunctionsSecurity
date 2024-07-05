@@ -12,7 +12,7 @@
 
 [Securing Azure Key Vault inside a VNET and using from an Azure Function](https://damienbod.com/2020/09/16/securing-azure-key-vault-inside-a-vnet-and-using-from-an-azure-function/)
 
-[Securing Azure Functions using Azure AD JWT Bearer token authentication for user access tokens](https://damienbod.com/2020/09/24/securing-azure-functions-using-azure-ad-jwt-bearer-token-authentication-for-user-access-tokens/)
+[Securing Azure Functions using Microsoft Entra ID JWT Bearer token authentication for user access tokens](https://damienbod.com/2020/09/24/securing-azure-functions-using-azure-ad-jwt-bearer-token-authentication-for-user-access-tokens/)
 
 ## History
 
@@ -85,7 +85,7 @@ http://www.subnet-calculator.com/
 https://www.youtube.com/watch?v=8Wh6ZXf8LK8
 
 
-# OpenID Connect Azure AD
+# OpenID Connect Microsoft Entra ID
 
 https://cmatskas.com/create-an-azure-ad-protected-api-that-calls-into-cosmosdb-with-azure-functions-and-net-core-3-1/
 
