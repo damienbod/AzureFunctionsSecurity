@@ -121,9 +121,17 @@ public class EntraIDJwtBearerValidation
             return false;
         }
 
-        var scopeClaim = claimsIdentity.HasClaim(x => x.Type == scopeType)
+        var scopeClaim = claimsIdentity.HasClaim(x => x.Type == "scp")
+            ? claimsIdentity.Claims.First(x => x.Type == "scp").Value
+            : string.Empty;
+
+        // fallback for MS mapping
+        if (string.IsNullOrEmpty(scopeClaim))
+        {
+            scopeClaim = claimsIdentity.HasClaim(x => x.Type == scopeType)
             ? claimsIdentity.Claims.First(x => x.Type == scopeType).Value
             : string.Empty;
+        }
 
         if (string.IsNullOrEmpty(scopeClaim))
         {
