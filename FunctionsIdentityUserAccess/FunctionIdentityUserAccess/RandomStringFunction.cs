@@ -1,35 +1,32 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace FunctionIdentityUserAccess;
 
 public class RandomStringFunction
 {
-    private readonly ILogger _log;
-    private readonly AzureADJwtBearerValidation _azureADJwtBearerValidation;
+    private readonly ILogger<RandomStringFunction> _logger;
+    private readonly EntraIDJwtBearerValidation _azureADJwtBearerValidation;
 
-    public RandomStringFunction(ILoggerFactory loggerFactory,
-        AzureADJwtBearerValidation azureADJwtBearerValidation)
+    public RandomStringFunction(ILogger<RandomStringFunction> logger,
+        EntraIDJwtBearerValidation azureADJwtBearerValidation)
     {
-        _log = loggerFactory.CreateLogger<RandomStringFunction>(); ;
+        _logger = logger;
         _azureADJwtBearerValidation = azureADJwtBearerValidation;
     }
 
-    [FunctionName("RandomString")]
-    public async Task<IActionResult> RandomString(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
+    [Function("RandomString")]
+    public async Task<IActionResult> RandomString([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]
+        HttpRequest req)
     {
         try
         {
-            _log.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
+            _logger.LogInformation("C# HTTP trigger RandomStringAuthLevelAnonymous processed a request.");
 
             ClaimsPrincipal principal; // This can be used for any claims
             if ((principal = await _azureADJwtBearerValidation.ValidateTokenAsync(req.Headers["Authorization"])) == null)
@@ -54,9 +51,6 @@ public class RandomStringFunction
 
     private byte[] GenerateRandomBytes(int length)
     {
-        using var randonNumberGen = new RNGCryptoServiceProvider();
-        var byteArray = new byte[length];
-        randonNumberGen.GetBytes(byteArray);
-        return byteArray;
+        return RandomNumberGenerator.GetBytes(length);
     }
 }

@@ -3,15 +3,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace FunctionIdentityUserAccess;
 
-public class AzureADJwtBearerValidation
+public class EntraIDJwtBearerValidation
 {
     private IConfiguration _configuration;
     private ILogger _log;
@@ -25,10 +22,10 @@ public class AzureADJwtBearerValidation
     private string _instance = string.Empty;
     private string _requiredScope = "access_as_user";
 
-    public AzureADJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
+    public EntraIDJwtBearerValidation(IConfiguration configuration, ILoggerFactory loggerFactory)
     {
         _configuration = configuration;
-        _log = loggerFactory.CreateLogger<AzureADJwtBearerValidation>();
+        _log = loggerFactory.CreateLogger<EntraIDJwtBearerValidation>();
 
         _tenantId = _configuration["AzureAd:TenantId"];
         _audience = _configuration["AzureAd:ClientId"];
@@ -36,7 +33,7 @@ public class AzureADJwtBearerValidation
         _wellKnownEndpoint = $"{_instance}{_tenantId}/v2.0/.well-known/openid-configuration";
     }
 
-    public async Task<ClaimsPrincipal> ValidateTokenAsync(string authorizationHeader)
+    public async Task<ClaimsPrincipal?> ValidateTokenAsync(string authorizationHeader)
     {
         if (string.IsNullOrEmpty(authorizationHeader))
         {
@@ -99,7 +96,7 @@ public class AzureADJwtBearerValidation
 
     private async Task<OpenIdConnectConfiguration> GetOIDCWellknownConfiguration()
     {
-        _log.LogDebug($"Get OIDC well known endpoints {_wellKnownEndpoint}");
+        _log.LogDebug("Get OIDC well known endpoints {_wellKnownEndpoint}", _wellKnownEndpoint);
         _configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
              _wellKnownEndpoint, new OpenIdConnectConfigurationRetriever());
 
@@ -120,17 +117,17 @@ public class AzureADJwtBearerValidation
 
         if (string.IsNullOrEmpty(scopeClaim))
         {
-            _log.LogWarning($"Scope invalid {scopeName}");
+            _log.LogWarning("Scope invalid {scopeName}", scopeName);
             return false;
         }
 
         if (!scopeClaim.Equals(scopeName, StringComparison.OrdinalIgnoreCase))
         {
-            _log.LogWarning($"Scope invalid {scopeName}");
+            _log.LogWarning("Scope invalid {scopeName}", scopeName);
             return false;
         }
 
-        _log.LogDebug($"Scope valid {scopeName}");
+        _log.LogDebug("Scope valid {scopeName}", scopeName);
         return true;
     }
 }
