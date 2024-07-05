@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace FunctionIdentityUserAccess;
@@ -13,8 +13,8 @@ public class EntraIDJwtBearerValidation
     private IConfiguration _configuration;
     private ILogger _log;
     private const string scopeType = @"http://schemas.microsoft.com/identity/claims/scope";
-    private ConfigurationManager<OpenIdConnectConfiguration> _configurationManager;
-    private ClaimsPrincipal _claimsPrincipal;
+    private ConfigurationManager<OpenIdConnectConfiguration>? _configurationManager;
+    private ClaimsIdentity? _claimsIdentity;
 
     private string _wellKnownEndpoint = string.Empty;
     private string? _tenantId = string.Empty;
@@ -31,7 +31,7 @@ public class EntraIDJwtBearerValidation
         _audience = _configuration["AzureAd:ClientId"];
         _instance = _configuration["AzureAd:Instance"];
 
-        if(_tenantId == null || _audience == null || _instance == null)
+        if (_tenantId == null || _audience == null || _instance == null)
         {
             throw new ArgumentException("missing API configuration");
         }
@@ -39,7 +39,7 @@ public class EntraIDJwtBearerValidation
         _wellKnownEndpoint = $"{_instance}{_tenantId}/v2.0/.well-known/openid-configuration";
     }
 
-    public async Task<ClaimsPrincipal?> ValidateTokenAsync(string authorizationHeader)
+    public async Task<TokenValidationResult?> ValidateTokenAsync(string? authorizationHeader)
     {
         if (string.IsNullOrEmpty(authorizationHeader))
         {
@@ -55,7 +55,10 @@ public class EntraIDJwtBearerValidation
 
         var oidcWellknownEndpoints = await GetOIDCWellknownConfiguration();
 
-        var tokenValidator = new JwtSecurityTokenHandler();
+        var tokenValidator = new JsonWebTokenHandler
+        {
+            MapInboundClaims = false
+        };
 
         var validationParameters = new TokenValidationParameters
         {
@@ -71,12 +74,11 @@ public class EntraIDJwtBearerValidation
 
         try
         {
-            SecurityToken securityToken;
-            _claimsPrincipal = tokenValidator.ValidateToken(accessToken, validationParameters, out securityToken);
+            var tokenValidationResult = await tokenValidator.ValidateTokenAsync(accessToken, validationParameters);
 
-            if (IsScopeValid(_requiredScope))
+            if (tokenValidationResult.IsValid && IsScopeValid(_requiredScope))
             {
-                return _claimsPrincipal;
+                return tokenValidationResult;
             }
 
             return null;
@@ -90,11 +92,14 @@ public class EntraIDJwtBearerValidation
 
     public string GetPreferredUserName()
     {
-        string preferredUsername = string.Empty;
-        var preferred_username = _claimsPrincipal.Claims.FirstOrDefault(t => t.Type == "preferred_username");
-        if (preferred_username != null)
+        var preferredUsername = string.Empty;
+        if (_claimsIdentity != null)
         {
-            preferredUsername = preferred_username.Value;
+            var preferred_username = _claimsIdentity.Claims.FirstOrDefault(t => t.Type == "preferred_username");
+            if (preferred_username != null)
+            {
+                preferredUsername = preferred_username.Value;
+            }
         }
 
         return preferredUsername;
@@ -111,14 +116,14 @@ public class EntraIDJwtBearerValidation
 
     private bool IsScopeValid(string scopeName)
     {
-        if (_claimsPrincipal == null)
+        if (_claimsIdentity == null)
         {
             _log.LogWarning("Scope invalid {scopeName}", scopeName);
             return false;
         }
 
-        var scopeClaim = _claimsPrincipal.HasClaim(x => x.Type == scopeType)
-            ? _claimsPrincipal.Claims.First(x => x.Type == scopeType).Value
+        var scopeClaim = _claimsIdentity.HasClaim(x => x.Type == scopeType)
+            ? _claimsIdentity.Claims.First(x => x.Type == scopeType).Value
             : string.Empty;
 
         if (string.IsNullOrEmpty(scopeClaim))
