@@ -1,7 +1,6 @@
-﻿namespace FunctionNeworkSecurity
+﻿namespace FunctionNeworkSecurity;
+
+public class MyConfigurationSecrets
 {
-    public class MyConfigurationSecrets
-    {
-        public string MySecret { get; set; }
-    }
+    public string MySecret { get; set; } = string.Empty;
 }
