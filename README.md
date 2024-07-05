@@ -16,7 +16,7 @@
 
 ## History
 
-- 2024-07-05 Updated user delegated access v4 .NET 8 Azure function
+- 2024-07-05 Updated user delegated access v4 .NET 8 Azure function, network function updated to v4
 - 2024-07-04 Updated FunctionCertificate to v4 project, .NET 8
 - 2024-07-03 Updated FunctionApiKeys to v4 project, .NET 8
 - 2021-03-07 Update packages and using DefaultAzureCredential for Azure Key vault access,  Microsoft.Identity.Web to 1.7.0
