@@ -25,7 +25,7 @@ class Program
 
         //var cert = new X509Certificate2("client401.pfx", "1234");
         //var localRandomStringBasicUrl = "http://localhost:7108/api/RandomStringCertAuth";
-        //return await CallApiXARRClientCertHeader(localRandomStringBasicUrl, cert, true);
+        //return await CallApiClientCertHeader(localRandomStringBasicUrl, cert, true);
     }
 
     private static async Task<string> CallApiClientCertHeader(string url, X509Certificate2 clientCertificate, bool isLocalTesting)
