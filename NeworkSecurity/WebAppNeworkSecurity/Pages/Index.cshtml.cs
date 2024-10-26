@@ -16,7 +16,9 @@ public class IndexModel : PageModel
     [BindProperty]
     public string RandomString { get; set; }
 
-    public IndexModel(IHttpClientFactory clientFactory, IConfiguration configuration, ILogger<IndexModel> logger)
+    public IndexModel(IHttpClientFactory clientFactory, 
+        IConfiguration configuration, 
+        ILogger<IndexModel> logger)
     {
         _logger = logger;
         _clientFactory = clientFactory;
