@@ -16,7 +16,8 @@
 
 ## History
 
-- 2021-10-26 Update packages
+- 2024-10-31 Update packages
+- 2024-10-26 Update packages
 - 2024-07-05 Updated user delegated access v4 .NET 8 Azure function, network function updated to v4
 - 2024-07-04 Updated FunctionCertificate to v4 project, .NET 8
 - 2024-07-03 Updated FunctionApiKeys to v4 project, .NET 8
