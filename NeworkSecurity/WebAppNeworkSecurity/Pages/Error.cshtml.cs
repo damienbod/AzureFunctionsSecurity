@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace WebAppNeworkSecurity.Pages;
+namespace WebAppNetworkSecurity.Pages;
 
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public class ErrorModel : PageModel

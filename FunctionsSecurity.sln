@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionVnetGatewayWAF", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionNeworkSecurity", "NeworkSecurity\FunctionNeworkSecurity\FunctionNeworkSecurity.csproj", "{183ABEAB-D7FF-4D82-8E27-AEC36279640A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppNeworkSecurity", "NeworkSecurity\WebAppNeworkSecurity\WebAppNeworkSecurity.csproj", "{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppNetworkSecurity", "NeworkSecurity\WebAppNeworkSecurity\WebAppNetworkSecurity.csproj", "{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionApiKey", "FunctionApiKey", "{2AF6D0D1-EAC3-4550-B0B7-6D76C623683C}"
 EndProject

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace WebAppNeworkSecurity.Pages;
+namespace WebAppNetworkSecurity.Pages;
 
 public class IndexModel : PageModel
 {
