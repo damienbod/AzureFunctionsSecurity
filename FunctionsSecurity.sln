@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateSelfSignedCertificate
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionVnetGatewayWAF", "FunctionVnetGatewayWAF", "{0238E721-D922-47C9-8564-D334801FF458}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionNeworkSecurity", "NeworkSecurity\FunctionNeworkSecurity\FunctionNeworkSecurity.csproj", "{183ABEAB-D7FF-4D82-8E27-AEC36279640A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionNetworkSecurity", "NetworkSecurity\FunctionNetworkSecurity\FunctionNetworkSecurity.csproj", "{183ABEAB-D7FF-4D82-8E27-AEC36279640A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppNetworkSecurity", "NeworkSecurity\WebAppNeworkSecurity\WebAppNetworkSecurity.csproj", "{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppNetworkSecurity", "NetworkSecurity\WebAppNetworkSecurity\WebAppNetworkSecurity.csproj", "{F6A9D7BA-A61F-4DB0-B7A5-D3CCCE4C37D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionApiKey", "FunctionApiKey", "{2AF6D0D1-EAC3-4550-B0B7-6D76C623683C}"
 EndProject
